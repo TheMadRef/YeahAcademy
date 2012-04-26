@@ -1,0 +1,101 @@
+<p>&nbsp;</p>
+<center><h1>Academy Family Class Report<h1>
+<table border=0 cellpadding=2 cellspacing=2>
+	<tr>
+		<th>Family</th>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>Mother</th>
+		<th>YEAH Code</th>
+		<th>Address</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Zip Code</th>
+		<th>Phone</th>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><%= @participant.last_name %></td>
+		<td><%= @participant.first_name %></td>
+		<td><%= @participant.mi %></td>
+		<td><%= @participant.yeah_code %></td>
+		<td><%= @participant.address_line_1 %></td>
+		<td><%= @participant.city %></td>
+		<td><%= @participant.state %></td>
+		<td><%= @participant.zip %></td>
+		<td><%= @participant.phone %></td>
+	</tr>
+<% for family_member in @family_members %>
+	<tr>
+		<td colspan=10>&nbsp;</td>
+	</tr>
+	<tr>
+		<th>Student</th>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>Mother</th>
+		<th>Grade</th>
+		<th>DOB</th>
+		<th colspan="4">&nbsp;</th>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><%= family_member.last_name %></td>
+		<td><%= family_member.first_name %></td>
+		<td><%= family_member.mi %></td>
+		<td><%= family_member.address_line_2 %></td>
+		<td><%= family_member.date_of_birth.to_s(:mdy) %></td>		
+		<td colspan="4">&nbsp;</td>
+	</tr>	
+	<tr>
+		<td colspan="10" align="center">
+			<table border=2>
+				<tr>
+					<th>Session</th>
+					<th>Monday</th>
+					<th>Tuesday</th>
+					<th>Wednesday</th>
+					<th>Thursday</th>
+				</tr>
+				<tr>
+					<td>1st</td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "M1") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "T1") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "W1") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "TH1") %></td>
+				</tr>				
+				<tr>
+					<td>2nd</td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "M2") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "T2") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "W2") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "TH2") %></td>
+				</tr>
+				<tr>
+					<td>3rd</td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "M3") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "T3") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "W3") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "TH3") %></td>
+				</tr>
+				<tr>
+					<td>4th</td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "M4") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "T4") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "W4") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "TH4") %></td>
+				</tr>
+				<tr>
+					<td>5th</td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "M5") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "T5") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "W5") %></td>
+					<td align="center"><%= print_class_sesssion_for_report(family_member.id, "TH5") %></td>
+				</tr>
+			</table>	
+		</td>
+	</tr>
+<% end%>
+
+</table>
+</center>

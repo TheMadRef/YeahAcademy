@@ -1,0 +1,26 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <p>
+    <% for column in EmailCustomText.content_columns %>
+      <b><%= column.human_name %>:</b> <%=h @email_custom_text.send(column.name) %><br/>
+    <% end %>
+    </p>
+    
+    <%= link_to 'Edit', :action => 'edit' %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+  	 <% if $g_im_online -%>
+  	   <%= render :partial => '/im/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_ct_online -%>
+    	 <%= render :partial => '/ct/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_rt_online -%>
+    	 <%= render :partial => '/rt/admin/links' %>
+  	 <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>	

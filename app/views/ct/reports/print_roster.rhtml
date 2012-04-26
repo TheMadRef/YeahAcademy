@@ -1,0 +1,40 @@
+<p>Participant Roster for <%= @ct_session.ct_class.class_name %> : <%= @ct_session.s_class_name %></p>
+<table>
+	<tr>
+		<% for column in @columns -%>
+			<% if column.participant_custom_field.nil? -%>
+				<th><%= column.participant_column_human_name %></th>
+			<% else -%>
+				<th><%= column.participant_custom_field.field_name %></th>
+			<% end -%>
+		<% end -%>
+	</tr>
+	<% for roster in @ct_rosters -%>
+		<tr>
+			<% for column in @columns -%>
+				<% if column.participant_custom_field.nil? -%>
+					<% if column.participant_column_name == "gender"
+						if !roster.participant.gender %>
+							<td>Male</td>
+						<% else %>
+							<td>Female</td>
+						<% end -%>
+					<% elsif column.participant_column_name != "category_id" -%>
+						<td><%= eval("roster.participant.#{column.participant_column_name}") %></td>
+					<% elsif !roster.participant.category.nil? -%>
+						<td><%= roster.participant.category.category_name %></td>
+					<% else -%>
+						<td>N/A</td>
+					<% end -%>
+				<% else -%>
+					<% custom_field = ParticipantCustomFieldEntry.find(:first, :conditions => ["participant_id = ? AND participant_custom_field_id = ?", roster.participant_id, column.participant_custom_field_id]) %>
+					<% if custom_field.nil? -%>
+						<td>N/A,</td>
+					<% else -%>
+						<td><%= custom_field.field_data %></td>
+					<% end -%>
+				<% end -%>
+			<% end -%>
+		</tr>
+	<% end -%>
+</table>

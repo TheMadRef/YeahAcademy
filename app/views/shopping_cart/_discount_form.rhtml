@@ -1,0 +1,14 @@
+    <p><b>Add Credit to Account</b></p>
+    <% form_tag :action => 'apply_credit' do %>
+      <%= error_messages_for 'payment_item', 'discount_log' %>
+        <dl>
+          <dd><%= hidden_field 'discount_log', 'participant_id' %></dd>
+          <dt>Amount:</dt>
+          <dd><%= text_field 'discount_log', 'amount',  :class => 'text' %></dd>
+
+          <dt>Comment</dt>
+          <dd><%= text_field 'discount_log', 'comment', :class => 'text' %></dd>
+
+          <dd><%= submit_tag "Add Discount/Credit", :class => 'button' %></dd>
+        </dl>
+      <% end -%>

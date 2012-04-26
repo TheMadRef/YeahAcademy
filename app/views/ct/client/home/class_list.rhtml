@@ -1,0 +1,64 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+   	<div id="list-table">
+	    <% if @ct_sessions[0].nil? -%>
+	      <h3>There are no classes currently open for registration.</h3>
+	    <% else -%>
+	      <h4>The following classes are open for registration.  Click on the <%= image_tag("join_class.png", :border=>0, :title =>"Sign Up", :alt=>"Click Here to Sign Up") %> icon under the Sign Up column to register for your desired class.</h4>
+	    	<table cellspacing="0" cellpadding="0">
+          <tr>
+            <th align="left">Class Session</th>
+            <th align="left">Status</th>
+            <th align="center">Price</th>
+            <th>Sign Up!</th>
+          </tr>
+          <% for session in @ct_sessions -%>
+          	<% if is_category_allowed_in_session?(session.id) -%>
+	            <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+	              <td align="left" valign="top">
+	              	<b><%= h session.ct_class.class_name %> : <%= h session.s_class_name %></b>
+	              	<% if !session.s_comment.blank? -%>
+	              		<br><%= session.s_comment %>
+	              	<% end -%>
+	              </td>
+	            	<% if session.s_early_bird_date > Time.now && session.s_registration_start < Time.now -%>
+	            		<td nowrap>Early Bird until<br><%= session.s_early_bird_date.to_s(:dmyhm) %></td>
+	            		<td align="center"><%= number_to_currency(session.s_price - session.s_early_bird_discount) %></td>
+	            	<% elsif session.s_late_date < Time.now && session.s_registration_end > Time.now -%>
+	            		<td nowrap>Late Registration until<br><%= session.s_registration_end.to_s(:dmyhm) %></td>
+	            		<td align="center"><%= number_to_currency(session.s_price + session.s_late_fee) %></td>
+	            	<% elsif session.s_registration_start < Time.now && session.s_registration_end > Time.now -%>
+	            		<td nowrap>Open until<br><%= session.s_late_date.to_s(:dmyhm) %></td>
+	            		<td align="center"><%= number_to_currency(session.s_price) %></td>
+	            	<% end -%>
+	              <% if CtRoster.roster_count_for_class_session(session) >= session.s_roster_maximum %>
+	                <td align="center"><span class="division_closed">FULL</span></td>
+	              <% else -%>
+	                <td align="center" valign="middle"><span class="division_open"><%= link_to image_tag("join_class.png", :border=>0, :title =>"Click Here to Sign Up", :alt=>"Click Here to Sign Up"), :controller => '/ct/roster', :action => 'join_class', :id => session %>&nbsp;
+	                	<% class_spots = session.s_roster_maximum - CtRoster.roster_count_for_class_session(session) 
+	                	if class_spots <= 5 -%> 
+	                		<span class="hurry"><%= class_spots %> left!</span>
+	                	<% end -%>
+	              	</span></td>
+	              <% end -%>
+	            </tr>
+	          <% end -%>
+          <% end -%>
+          <% if !@found_session -%>
+          	<p><b>There are no class sessions currently available for you or any of your family members.  Click on <%= link_to 'Add New Family Member', :controller => '/account', :action => 'new_family_member' %> if you have not yet added your family to your account.  Go to <%= link_to 'My Profile', :controller => '/account', :action => 'my_profile' %> or <%= link_to 'My Family', :controller => '/account', :action => 'my_family' %> to verify the category/grade of yourself and/or your family members.  Edit each family member to ensure that their category/grade is correct.  if you still believe this is an error, please contact your system administrator.</b></p>
+          <% end -%>
+	      </table>
+	      <div id="pagination"><%= pagination_links(@ct_session_pages, :window_size => 5) %></div>
+    	<% end -%>
+			<% if are_there_future_class_registrations? -%>
+        <p><%= link_to 'List of Future Registrations', :action => 'class_list' %></p>
+		  <% end -%>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/client/links' %>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+h3,h4,h5,h6
+{
+color: #334D00;
+}
+
+a
+{
+color: #F16C00;
+}
+
+#header
+{
+background: #440000 url('/images/images_green/n1.gif') repeat-x;
+}
+
+#menu li a
+{
+background: #fff url('/images/images_green/n4.gif') repeat-x;
+border: solid 1px #fff;
+color: #616161;
+}
+
+#menu li a.active
+{
+background: #FF790B url('/images/images_blue/n3.gif') repeat-x;
+color: #fff;
+border: solid 1px #DB7623;
+}
+
+#main
+{
+background: #fff url('/images/images_green/n2.gif') 0px 1px repeat-x;
+}
+
+#main_inner .post ul.post_info li.date
+{
+background-image: url('/images/images_green/n5.gif');
+}
+
+#main_inner .post ul.post_info li.comments
+{
+background-image: url('images_green/n6.gif');
+}
+
+#main_inner #pagination
+{
+color: #334D00;
+}
+
+input.button
+{
+background: #2798D2 url('/images/images_blue/n3.gif') repeat-x;
+color: #fff;
+border: solid 1px #DB7623;
+}

@@ -1,0 +1,53 @@
+        <table width="500">
+            <tr><th colspan="3">Order # <%= @order.id %> paid on <%= @order.created_at.to_s(:dmyhm) %> by <%= @order.payment_type.payment_type %></th></tr> 
+            <tr>
+              <th align="left" width="150">Item Type</th>
+              <th align="left">Description</th>
+              <th align="center" width="60">Price</th>
+            </tr>
+            <% total_price = 0 -%>
+            <% for line_item in @line_items -%>
+              <tr>
+                <td valign="top"><%= line_item.payment_item.payment_item %></td>
+                <td valign="top">
+                  <% if line_item.payment_item_id == 1 -%>
+                    <% if line_item.im_roster.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.im_roster.participant.last_name %> in <%= line_item.im_roster.im_team.team_name -%>
+                    <% end -%>
+                  <% elsif line_item.payment_item_id == 2 -%>
+                    <% if line_item.im_team.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.im_team.team_name -%> in
+                      <% if line_item.im_team.im_division_id.nil? -%>
+                        <%= line_item.im_team.im_league.im_sport.sport_name -%>
+                      <% else -%>
+                        <%= line_item.im_team.im_division.im_league.im_sport.sport_name -%>                      
+                      <% end -%>
+                    <% end -%>
+                  <% elsif line_item.payment_item_id == 3 -%>
+                    <% if line_item.ct_roster.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.ct_roster.ct_session.s_class_name %> in <%= line_item.ct_roster.ct_session.ct_class.class_name %>                  
+                    <% end -%>
+                  <% elsif line_item.payment_item_id == 4 -%>
+                    <% if line_item.discount_log.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.discount_log.comment %>
+                    <% end -%>
+                  <% end -%>
+                  <% if !line_item.comment.blank? %><br><%= line_item.comment %><% end %>
+                </td>
+                <td align="center" valign="top"><%= number_to_currency(line_item.price) %></td>
+              </tr>
+              <% total_price += line_item.price %>
+            <% end -%>
+            <tr class="table-item-odd">
+              <th align="right" colspan="2">Total:</th>
+              <th align="center"><%= number_to_currency(total_price) %></th>
+            </tr>
+        </table>

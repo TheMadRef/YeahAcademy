@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+card_without_participant:
+  id:               1
+  password:         2446a450ffcf9ee4b589f3a5ad9921ec4642a4c8
+  
+  
+card_with_assigned_participant:
+  id:               2
+  password:         2446a450ffcf9ee4b589f3a5ad9921ec4642a4c8
+  participant_id:   1

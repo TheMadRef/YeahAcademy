@@ -1,0 +1,14 @@
+*** ClassTrack Online Game Notification ***
+
+Dear <%= @participant %>:
+
+A session you were signed up for has been cancelled from our system. Class session details are below:
+
+	Session Name:  <%= @session_name %>
+	Date:  <%= @session_date.to_s(:date_with_week_day) %>
+	Time:  <%= @start_time.to_s(:hm) %>
+	Location:  <%= @facility %>\
+	
+We apologize for the inconvenience.  Please go to  http://<%= $g_return_url %>/ct/client/home for more information.
+
+ClassTrack Online Administration

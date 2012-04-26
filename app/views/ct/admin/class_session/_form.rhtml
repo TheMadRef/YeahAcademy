@@ -1,0 +1,122 @@
+<%= error_messages_for 'ct_session', 'participant_event' %>
+
+<!--[form:ct_session]-->
+<dd><%= hidden_field 'ct_session', 'ct_class_id' %></dd>
+
+<table>
+<tr><td>
+<dt>Session name:</dt>
+<dd><%= text_field 'ct_session', 's_class_name', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Abbreviation:</dt>
+<dd><%= text_field 'ct_session', 's_abbreviation', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Bundle All:</dt>
+<dd><%= select('ct_session', 's_all_bundle', [["No",false],["Yes",true]]) %>
+<p>(Customer is added to all sessions for this class when joining this session)</p></dd>
+</td></tr>
+
+<tr><td>
+<dt>Registration Start:</dt>
+<dd><%= datetime_select 'ct_session', 's_registration_start', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Registration End:</dt>
+<dd><%= datetime_select 'ct_session', 's_registration_end', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Roster Max:</dt>
+<dd><%= text_field 'ct_session', 's_roster_maximum', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Price:</dt>
+<dd><%= text_field 'ct_session', 's_price', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Early Bird Discount Deadline:</dt>
+<dd><%= datetime_select 'ct_session', 's_early_bird_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Early Bird Discount:</dt>
+<dd><%= text_field 'ct_session', 's_early_bird_discount', :class => 'text'  %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Late Date:</dt>
+<dd><%= datetime_select 'ct_session', 's_late_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Late Fee:</dt>
+<dd><%= text_field 'ct_session', 's_late_fee', :class => 'text' %></dd>
+</td></tr>
+
+<% if !@ct_instructors[0].nil? -%>
+	<tr><td>
+		<dt><label for="ct_session_ct_instructor_id">Instructor:</label></dt>
+		<dd><%= select("ct_session", "ct_instructor_id", @ct_instructors.collect {|c| [ "#{c.participant.first_name} #{c.participant.last_name}", c.id ] }, :class => 'list') %></dd>
+	</td></tr>
+<% end -%>
+
+<% if !$g_set_number_of_days_to_pay %>	
+	<tr><td>
+	<dt>Payment Due Date:</dt>
+	<dd><%= datetime_select 'ct_session', 's_payment_due_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+	</td></tr>
+<% end %>
+
+<% if $g_require_DOB -%>
+	<tr><td>
+		<dt>Minimum Age</dt>
+		<dd><%= text_field 'ct_session', 's_minimum_age', :class => 'text' %>
+	</td></tr>
+	
+	<tr><td>
+		<dt>Maximum Age</dt>
+		<dd><%= text_field 'ct_session', 's_maximum_age', :class => 'text' %>
+	</td></tr>
+<% end -%>
+
+<tr><td
+<dt>Comment:</dt>
+<dd><%= text_area 'ct_session', 's_comment', :class => 'text-area' %></dd>
+</td></tr>
+
+<% if !@categories[0].nil? -%>
+	<tr>
+		<td>
+			<div id="list-table">
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<th colspan="2">
+							Category Restrictions
+						</th>
+					</tr>
+					<tr>
+						<td nowrap colspan="2">
+							Mark Categories which are <b>NOT</b> allowed to purchase this class
+						</td>
+					</tr>
+					<% for category in @categories -%>
+						<tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+							<td valign="top" width="10"><%= check_box_tag "category_#{category}", "1", checked = @categories_array[category] %></td>
+              <td><%= h Category.print_category_name(category) %></td>      
+						</tr>
+					<% end -%>
+				</table>
+			</div>
+		</td>
+	</tr>
+<% end -%>
+</table>
+<!--[eoform:ct_session]-->
+

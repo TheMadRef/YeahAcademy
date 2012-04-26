@@ -1,0 +1,35 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Classes</h3>
+    <div id="list-table">
+      <%= link_to 'Add New Class', :controller => '/ct/admin/term', :action => 'new_class' %>
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Term</th>
+          <th align="left">Class</th>
+          <th align="left">Abbreviation</th>
+          <th colspan="3">&nbsp;</th>
+        </tr>
+      <% for ct_class in @ct_classes -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <td><%= h ct_class.term.term_name %></td>
+          <td><%= link_to "#{h ct_class.class_name}", :action => 'show', :id => ct_class %></td>
+          <td><%= h ct_class.abbreviation %></td>
+          <td align="center"><%= link_to image_tag("session_add.png", :border=>0, :title=>"New Session", :alt=>"New Session"), :controller => '/ct/admin/class_session', :action => 'new', :id => ct_class %>
+          <td align="center"><%= link_to image_tag("edit.png", :border=>0, :title=>"Edit Class", :alt=>"Edit Class"), :action => 'edit', :id => ct_class %></td>
+          <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Delete Class", :alt=>"Delete Class"), { :action => 'destroy', :id => ct_class }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@ct_class_pages, :window_size => 5) %></div>
+      <%= link_to 'Add New Class', :controller => '/ct/admin/term', :action => 'new_class' %>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

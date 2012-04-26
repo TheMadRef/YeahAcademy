@@ -1,0 +1,16 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <p>
+    	<%= @ct_instructor.participant.first_name %> <%= @ct_instructor.participant.last_name%>
+    </p>
+
+    <%= link_to 'Back', :action => 'list' %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

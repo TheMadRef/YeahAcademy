@@ -1,0 +1,55 @@
+h3,h4,h5,h6
+{
+color: #66000F;
+}
+
+a
+{
+color: #D90000;
+}
+
+#header
+{
+background: #440000 url('/images/images_red/n1.gif') repeat-x;
+}
+
+#menu li a
+{
+background: #fff url('/images/images_red/n4.gif') repeat-x;
+border: solid 1px #fff;
+color: #616161;
+}
+
+#menu li a.active
+{
+background: #CA2F2F url('/images/images_red/n3.gif') repeat-x;
+color: #fff;
+border: solid 1px #A94B4B;
+}
+
+#main
+{
+background: #fff url('/images/images_red/n2.gif') 0px 1px repeat-x;
+}
+
+#main_inner .post ul.post_info li.date
+{
+background-image: url('/images/images_red/n5.gif');
+}
+
+#main_inner .post ul.post_info li.comments
+{
+background-image: url('/images/images_red/n6.gif');
+}
+
+#main_inner #pagination
+{
+color: #66000F;
+}
+
+input.button
+{
+background: #CA2F2F url('/images/images_red/n3.gif') repeat-x;
+color: #fff;
+border: solid 1px #A94B4B;
+}

@@ -1,0 +1,2 @@
+module PaymentSettingHelper
+end

@@ -1,0 +1,14 @@
+<div id="primaryContent_columnless">
+	<div id="columnA_columnless">
+	  <%= display_standard_flashes -%>
+	  <% if !@warning_message.blank? -%>
+	  	<h4><%= @warning_message %>
+	  <% end -%>
+	  <h2><%= @master_setting.system_name %></h2>
+	  <p><%= @master_setting.welcome_message %></p>  
+		<% if $g_ct_online -%>
+	    <h3><%= @ct_setting.system_name %></h3>
+	    <hr>
+	  <% end -%>
+  </div>
+</div>

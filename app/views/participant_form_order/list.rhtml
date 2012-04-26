@@ -1,0 +1,49 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Participant Fields</h3>
+    <div id="list-table">
+      <%= link_to 'Edit Form Order', :action => 'edit' %>
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">#</th>
+          <th align="left">Field Name</th>
+          <th align="center">Required</th>
+          <th align="center">Show on Forms</th>
+          <th align="center">Show on Reports</th>
+        </tr>
+        <% for field in @participant_fields -%>
+          <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+            <td align="center"><%= h field.sort_number %></td>
+            <% if field.participant_custom_field.nil? -%>
+	            <td><%= h field.participant_column_human_name %></td>
+  	          <td align="center"><%= field.participant_column_required %></td>
+  	          <td align="center"><%= field.show_field %></td>
+            <% else -%>
+	            <td><%= h field.participant_custom_field.field_name %></td>
+  	          <td align="center"><%= field.participant_custom_field.required %></td>
+    	        <td align="center">true</td>            
+						<% end -%>
+	          <td align="center"><%= field.show_on_reports %></td>
+          </tr>          
+        <% end -%>
+      </table>
+      <%= link_to 'Edit Form Order', :action => 'edit' %>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+     <% if $g_im_online -%>
+     <%= render :partial => '/im/admin/links' %>
+     <% end -%>
+     <% if $g_ct_online -%>
+     <%= render :partial => '/ct/admin/links' %>
+     <% end -%>
+     <% if $g_rt_online -%>
+     <%= render :partial => '/rt/admin/links' %>
+     <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Playing Areas</h3>
+    <div id="list-table">
+      <%= link_to 'Add New Playing Area', :controller => '/facility', :action => 'new_playing_area' %>
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Facility</th>
+          <th align="left">Playing Area</th>
+          <th colspan="2">&nbsp;</th>
+        </tr>
+        <% for playing_area_id in @playing_areas -%>
+          <% playing_area = PlayingArea.find_by_id(playing_area_id) %>
+          <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+            <td><%= h playing_area.facility.facility_name %></td>
+            <td>
+              <% if not playing_area.playing_area.nil? -%>
+                <%= link_to "#{h playing_area.playing_area.playing_area_name} : #{h playing_area.playing_area_name}", :action => 'show', :id => playing_area %>
+              <% else -%>
+                <%= link_to "#{h playing_area.playing_area_name}", :action => 'show', :id => playing_area %>
+              <% end -%>
+            </td>
+            <td align="center"><%= link_to image_tag("edit.png", :border=>0, :title=>"Edit Playing Area", :alt=>"Edit Playing Area"), :action => 'edit', :id => playing_area %></td>
+            <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Delete Playing Area", :alt=>"Delete Playing Area"), { :action => 'destroy', :id => playing_area}, :confirm => 'Are you sure you want to delete this playing area and all sub areas (if any)?', :method => :post %></td>
+          </tr>          
+        <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@playing_area_pages, :window_size => 5) %></div>
+      <%= link_to 'Add New Playing Area', :controller => '/facility', :action => 'new_playing_area' %>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+     <% if $g_im_online -%>
+     <%= render :partial => '/im/admin/links' %>
+     <% end -%>
+     <% if $g_ct_online -%>
+     <%= render :partial => '/ct/admin/links' %>
+     <% end -%>
+     <% if $g_rt_online -%>
+     <%= render :partial => '/rt/admin/links' %>
+     <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>
+

@@ -1,0 +1,90 @@
+<%= error_messages_for 'ct_class' %>
+
+<!--[form:ct_class]-->
+<table>
+	
+<dd><%= hidden_field 'ct_class', 'term_id', :class => 'text' %></dd>
+
+<tr><td>
+<dt>Class Name:</dt>
+<dd><%= text_field 'ct_class', 'class_name', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Abbreviation:</dt>
+<dd><%= text_field 'ct_class', 'abbreviation', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Registration Start:</dt>
+<dd><%= datetime_select 'ct_class', 'registration_start', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Registration End:</dt>
+<dd><%= datetime_select 'ct_class', 'registration_end', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Roster Max:</dt>
+<dd><%= text_field 'ct_class', 'default_roster_maximum', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Price:</dt>
+<dd><%= text_field 'ct_class', 'default_price', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Early Bird Discount Deadline:</dt>
+<dd><%= datetime_select 'ct_class', 'default_early_bird_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Early Bird Discount:</dt>
+<dd><%= text_field 'ct_class', 'default_early_bird_discount', :class => 'text'  %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Late Date:</dt>
+<dd><%= datetime_select 'ct_class', 'default_late_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Late Fee:</dt>
+<dd><%= text_field 'ct_class', 'default_late_fee', :class => 'text'  %></dd>
+</td></tr>
+
+<% if !$g_set_number_of_days_to_pay %>	
+	<tr><td>
+	<dt>Payment Due Date:</dt>
+	<dd><%= datetime_select 'ct_class', 'default_payment_due_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+	</td></tr>
+<% end %>
+
+<% if $g_require_DOB -%>
+	<tr><td>
+		<dt>Default Minimum Age</dt>
+		<dd><%= text_field 'ct_class', 'default_minimum_age', :class => 'text' %>
+	</td></tr>
+	
+	<tr><td>
+		<dt>Default Maximum Age</dt>
+		<dd><%= text_field 'ct_class', 'default_maximum_age', :class => 'text' %>
+	</td></tr>
+<% end -%>
+
+<% if $g_class_terms_and_conditions %>
+	<tr><td>
+  <dt>Class Terms and Conditions Text:</dt>
+  <dd><%= text_area_tag 'class_terms_and_conditions', @class_terms_and_conditions, {:size => "30x15", :class => 'text'} %></dd>
+	</td></tr>
+<% end %>
+
+<tr><td>
+<dt>Comment:</dt>
+<dd><%= text_area 'ct_class', 'comment', :class => 'text-area' %></dd>
+</td></tr>
+</table>
+<!--[eoform:ct_class]-->
+

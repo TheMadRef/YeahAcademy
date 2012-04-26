@@ -1,0 +1,15 @@
+<%= MasterSetting.find(1).system_name %>
+Participant Roster for <%= @class_name %> : <%= @session_name %>
+
+<% for column in @columns -%>
+	<% if column.participant_custom_field.nil? -%>
+		<%= column.participant_column_human_name %>,
+	<% else -%>
+		<%= column.participant_custom_field.field_name %>
+	<% end -%>
+<% end -%>
+<% for roster in @rosters -%>
+<%  for column in @columns -%>
+	<%= Participant.participant_field_value(column, roster) %>,
+<%  end -%>
+<% end -%>

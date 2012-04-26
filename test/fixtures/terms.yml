@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+test_term:
+  id:                               1
+  term_name:                        Fall 2007
+
+test_term_with_dates:
+  id:                               2
+  term_name:                        Spring 2007
+  default_class_registration_start: 01-01-2001
+  default_class_registration_end:   01-01-2002
+  

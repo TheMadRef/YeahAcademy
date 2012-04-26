@@ -1,0 +1,36 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Sign Up New Administrator</h3>
+    <%= error_messages_for :user %>
+    <% form_for :user do |f| -%>
+    <dl>
+      <h4>Login Information</h4>
+      <dt>Login:</dt>
+      <dd><%= f.text_field :login, :class => "text" %></dd>
+      
+      <dt>Password:</dt>
+      <dd><%= f.password_field :password, :class => "text" %></dd>
+      
+      <dt>Confirm Password</dt>
+      <dd><%= f.password_field :password_confirmation, :class => "text" %></dd>
+      
+      <dd><%= submit_tag 'Create', :class => 'button' %></dd>
+    </dl>
+    <% end -%>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <% if $g_im_online -%>
+	     <%= render :partial => '/im/admin/links' %>
+	  <% end -%>
+    <% if $g_ct_online -%>
+      <%= render :partial => '/ct/admin/links' %>
+    <% end -%>
+    <% if $g_rt_online -%>
+      <%= render :partial => '/rt/admin/links' %>
+    <% end -%>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

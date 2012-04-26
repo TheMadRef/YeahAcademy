@@ -1,0 +1,54 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Family Members.</h3>
+    <% if !$g_verify_participants -%>
+    	<h4>Click Add New Family Member to add a new participant to your family.</h4>
+    <% end -%>
+	  <% if !@participants[0].nil? -%>
+	    <div id="list-table">
+	    	<% if !$g_verify_participants -%>
+	      	<%= link_to 'Add New Family Member', :action => 'new_family_member' %>
+	      <% end -%>
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <th align="left">Last, First MI</th>
+            <th align="left">Category</th>
+            <th align="left">Email</th>
+            <th>Phone</th>
+            <th colspan="1">&nbsp;</th>
+          </tr>
+	        <% for participant in @participants -%>
+	          <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+	            <td><%= h participant.last_name %>, <%= h participant.first_name %></td>
+	            <td>
+	            	<% if participant.category.nil? -%>
+	            		N/A
+	            	<% else -%>
+		            	<% if participant.category.category.nil? -%>
+		            		<%= h participant.category.category_name %>
+		            	<% else -%>
+		            		<%= h participant.category.category.category_name %> : <%= h participant.category.category_name %>
+		            	<% end -%>
+		            <% end -%>
+	            </td>
+	            <td><%= link_to "#{h participant.email}", "mailto:#{participant.email}" %>&nbsp;</td>
+	            <td align="center"><% if participant.phone.blank? %>-<% else %><%= h participant.phone %><% end %></td>
+	            <td align="center"><%= link_to image_tag("edit.png", :border=>0, :title =>"Edit Family Member", :alt=>"Edit Family Member"), :action => 'edit_family_member', :id => participant %></td>
+	          </tr>
+	        <% end -%>
+        </table>
+	    </div>
+		<% else -%>
+			<p>You have no family members at this time.</p>
+		<% end -%>
+  	<% if !$g_verify_participants -%>
+    	<%= link_to 'Add New Family Member', :action => 'new_family_member' %>
+    <% end -%>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+		<%= render :partial => 'home/side_links' %>
+  </div>
+</div>

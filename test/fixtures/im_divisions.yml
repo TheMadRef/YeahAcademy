@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+empty_division:
+  id:                  1
+  im_league_id:        1
+  im_day_of_play_id:   1
+  division_name:       "Empty Division"
+  number_of_teams:     5
+  start_time:          "20:00"
+  end_time:            "20:59"
+  rotating:            "false"
+ 
+full_division:
+  id:                  2
+  im_league_id:        1
+  im_day_of_play_id:   1
+  division_name:       "Full Division"
+  number_of_teams:     5
+  start_time:          "21:00"
+  end_time:            "21:59"
+  rotating:            "false"
+ 

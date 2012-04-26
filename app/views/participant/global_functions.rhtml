@@ -1,0 +1,49 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Participant Database Management Options</h3>
+    <p>Once you confirm the function below, the procedure <b>can NOT</b> be undone.</p>
+    <div id="list-table">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th colspan="2">CTOnline Functions</th>
+        </tr>
+        <tr class="table-item-odd">
+          <td>Reset CT Master Terms and Conditions for All Participants</td>
+          <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Reset CT Master Terms and Conditions", :alt=>"Reset CT Master Terms and Conditions"), { :action => 'reset_ct_master_terms_and_conditions' }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+        <tr class="table-item-even">
+          <td>Reset CT Eligibility</td>
+          <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Reset CT Eligibility", :alt=>"Reset CT Eligibility"), { :action => 'reset_ct_eligibility' }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+      </table>
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th colspan="2">General Functions</th>
+        </tr>
+        <tr class="table-item-odd">
+          <td>Reset Membership Fee Status</td>
+          <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Reset Membership Fee", :alt=>"Reset Membership Fee"), { :action => 'reset_membership_fee_status' }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+        <tr class="table-item-even">
+          <td>Reset Master Terms and Conditions for All Participants</td>
+          <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Reset Master Terms and Conditions", :alt=>"Reset Master Terms and Conditions"), { :action => 'reset_master_terms_and_conditions' }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+	 <% if $g_im_online -%>
+	   <%= render :partial => '/im/admin/links' %>
+	 <% end -%>
+	 <% if $g_ct_online -%>
+  	 <%= render :partial => '/ct/admin/links' %>
+	 <% end -%>
+	 <% if $g_rt_online -%>
+  	 <%= render :partial => '/rt/admin/links' %>
+	 <% end -%>
+   <%= render :partial => '/admin/links' %>
+  </div>
+</div>

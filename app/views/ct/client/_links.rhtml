@@ -1,0 +1,19 @@
+    <h4><span>CTOnline</span><br>User Links</h4>
+    <ul class="links">
+      <li class="first"><%= link_to "Home", { :controller => "/ct/client/home"} %></li>
+			<% if are_there_active_class_registrations? -%>
+      	<li><%= link_to "Active Classes", { :controller => "/ct/client/home"} %></li>
+      <% end -%>
+      <% if are_there_future_class_registrations? -%>
+      	<li><%= link_to "Upcoming Classes", { :controller => "/ct/client/home", :action => "upcoming_list"} %></li>
+      <% end -%>
+			<% if does_user_belong_to_classes? %>
+      	<li><%= link_to "My Classes", { :controller => "/ct/roster", :action => "my_classes"} %></li>
+      <% end -%>
+      <% if is_user_an_instructor? -%>
+      	<li><%= link_to "My Assignments", { :controller => "/ct/roster", :action => "my_assignments"} %></li>      
+      <% end -%>
+      <% if does_user_have_pending_items? -%>
+	      <li><%= link_to "Check Out", { :controller => "/shopping_cart", :action => "pending_items"} %></li>
+	  <% end -%>
+    </ul>

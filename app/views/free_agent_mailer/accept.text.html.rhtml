@@ -1,0 +1,7 @@
+<p>Dear <%= @captain %>:</p>
+
+<p><%= @free_agent %> has accepted your invitation to join your team, <%= @team %></p>
+
+<p>Login to IMOnline to view your <%= link_to "current roster", "http://#{@url}/im/roster/list/#{h @team_id}" %>.</p>
+
+<p>Thanks for your continued support!</p>

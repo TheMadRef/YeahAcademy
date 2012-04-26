@@ -1,0 +1,34 @@
+      <% if !@participants[0].nil? -%>
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <th align="left">Last, First</th>
+			<th align="left">Mother</th>
+            <th align="left">Email</th>
+            <th>Phone</th>
+			<th>Parent</th>
+            <th>CT Active</th>
+            <th colspan="3">&nbsp;</th>
+          </tr>
+        <% for participant in @participants -%>
+          <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+            <td><%= link_to "#{h participant.last_name}, #{h participant.first_name}", :action => 'show', :id => participant %></td>
+			<td><%= h participant.mi %></td>
+            <td><%= link_to "#{h participant.email}", "mailto:#{participant.email}" %>&nbsp;</td>
+            <td align="center"><% if participant.phone.blank? %>-<% else %><%= h participant.phone %><% end %></td>
+            <% if participant.participant.nil? -%>
+              <td align="center">-</td>
+             <% else -%>
+              <td align="center"><%= participant.participant.first_name %> <%= participant.participant.last_name %></td>
+            <% end -%>
+            <td align="center"><%= participant.ct_active %></td>
+            <td><%= link_to image_tag("family_report.png", :border=>0, :title=>"Family Report", :alt=>"Family Report"), {:controller => '/ct/reports', :action => 'family_report', :id => participant}, :popup => ['Session_Roster_Report', 'height=500,width=850,scrollbars=1,toolbar=1']   %></td>
+            <td><%= link_to image_tag("account_history.png", :border=>0, :title=>"Account History", :alt=>"Account History"), :controller => '/shopping_cart', :action => 'participant_history', :id => participant  %></td>
+            <td align="center"><%= link_to image_tag("edit.png", :border=>0, :title =>"Edit Participant", :alt=>"Edit Participant"), :action => 'edit', :id => participant %></td>
+            <td align="center"><% if participant.imtrack_id.nil? %><%= link_to image_tag("delete.png", :border=>0, :title =>"Delete Participant", :alt=>"Delete Participant"), { :action => 'destroy', :id => participant }, :confirm => 'Are you sure?', :method => :post %><% else %>-<% end %></td>
+          </tr>
+        <% end -%>
+        </table>
+        <div id="pagination"><%= pagination_links(@participant_pages, :window_size => 5, :params => { :first_name => @first_name, :last_name => @last_name , :search_type => "name" }) %></div>
+      <% else -%>
+        <p>Your search has produced an empty data set</p>
+      <% end -%>

@@ -1,0 +1,20 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <h3><%= link_to 'Edit Account', :controller => '/account', :action => 'my_account' %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Account History', :controller => '/shopping_cart', :action => 'account_history' %>&nbsp;&nbsp;|&nbsp;&nbsp;Pending Payments</h3>
+    <p>Summary of transactions initiated but not yet paid</p>
+    <%= display_standard_flashes -%>
+
+     <%= render :partial => 'orders_list' %>
+
+   </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+  	 <% if $g_im_online -%>
+  	   <%= render :partial => '/im/client/links' %>
+  	 <% end -%>
+  	 <% if $g_ct_online -%>
+    	 <%= render :partial => '/ct/client/links' %>
+  	 <% end -%>
+  </div>
+</div>

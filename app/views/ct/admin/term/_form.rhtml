@@ -1,0 +1,70 @@
+<%= error_messages_for 'term' %>
+
+<!--[form:term]-->
+<table>
+<tr><td>
+<dt>Term name:</dt>
+<dd><%= text_field 'term', 'term_name', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Default Registration Start:</dt>
+<dd><%= datetime_select 'term', 'default_class_registration_start', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Default Registration End:</dt>
+<dd><%= datetime_select 'term', 'default_class_registration_end', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Default Roster Max:</dt>
+<dd><%= text_field 'term', 'default_class_roster_maximum', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Default Price:</dt>
+<dd><%= text_field 'term', 'default_class_price', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Default Early Bird Discount Deadline:</dt>
+<dd><%= datetime_select 'term', 'default_class_early_bird_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Early Bird Discount:</dt>
+<dd><%= text_field 'term', 'default_class_early_bird_discount', :class => 'text'  %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Default Late Date:</dt>
+<dd><%= datetime_select 'term', 'default_class_late_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Default Late Fee:</dt>
+<dd><%= text_field 'term', 'default_class_late_price', :class => 'text'  %></dd>
+</td></tr>
+
+<% if $g_require_DOB -%>
+	<tr><td>
+		<dt>Default Minimum Age</dt>
+		<dd><%= text_field 'term', 'default_class_minimum_age', :class => 'text' %>
+	</td></tr>
+	
+	<tr><td>
+		<dt>Default Maximum Age</dt>
+		<dd><%= text_field 'term', 'default_class_maximum_age', :class => 'text' %>
+	</td></tr>
+<% end -%>
+
+<% if !$g_set_number_of_days_to_pay %>	
+	<tr><td>
+	<dt>Default Payment Due Date:</dt>
+	<dd><%= datetime_select 'term', 'default_class_payment_due_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+	</td></tr>
+<% end %>
+</table>
+<!--[eoform:term]-->
+

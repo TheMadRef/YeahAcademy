@@ -1,0 +1,179 @@
+          <% if !@class_entries[0].nil? -%>
+           <table width="60%">
+            <tr><th colspan="4">Class Purchases</th></tr> 
+            <tr>
+              <% if current_user.admin -%>
+	              <th width="25">&nbsp;</th>
+	    	  <% end -%>
+              <th align="left" width="250">Class Session</th>
+              <th align="left">Participant</th>
+              <th align="left" width="80">Price</th>
+              <th align="left">Google Order Number</th>
+            </tr>
+            <% for line_item in @class_entries do -%>
+              <% if !line_item.ct_roster.nil? %>
+	              <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+	                <% if current_user.admin -%>
+	  	              <td><%= check_box_tag "line_item_#{line_item.id}", "1", checked = params[:id] == line_item.id.to_s %></td>
+	    			<% end -%>
+	                <td valign="middle"><%= line_item.ct_roster.ct_session.ct_class.class_name %>:<%= line_item.ct_roster.ct_session.s_class_name %>
+	                	<% if !line_item.comment.blank? %><br><%= line_item.comment %><% end %>
+	                </td>
+	                <td valign="middle"><%= line_item.ct_roster.participant.last_name %>,&nbsp;<%= line_item.ct_roster.participant.first_name %></td>
+	                <td valign="middle"><%= number_to_currency(line_item.price) %></td>
+		              <% if line_item.ct_roster.approved? -%>
+		                <td>&nbsp;</td>
+		              <% else -%>
+		                <td align="center"><%= link_to image_tag("delete.png", :border=>0,:title=>"Remove from Class Session", :alt=>"Remove from Class Session"), { :controller => '/ct/roster', :action => 'destroy', :id => line_item.ct_roster_id }, :confirm => 'Are you sure?  This will remove you from the roster even if you have already submitted a google payment.', :method => :post %></td>
+	                <% end -%>
+	                <% if current_user.admin -%>
+						<td>&nbsp;</td>
+						<td><% if !line_item.google_receipt_number.nil? %><%= line_item.google_receipt_number.to_s %><% else %>N/A<% end %></td>
+					<% elsif line_item.google_receipt_number.nil? -%>
+						<td><form method="POST"
+  action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/<%= line_item.ct_roster.ct_session.ct_instructor.google_account %>"
+      accept-charset="utf-8" target="_blank">
+  <input type="hidden" name="item_name_1" value="<%= line_item.ct_roster.ct_session.ct_class.class_name %>:<%= line_item.ct_roster.ct_session.s_class_name %>"/>
+  <input type="hidden" name="item_description_1" value="YEAH Academy Purchase."/>
+  <input type="hidden" name="item_quantity_1" value="1"/>
+  <input type="hidden" name="item_price_1" value="<%= line_item.price %>"/>
+  <input type="hidden" name="item_currency_1" value="USD"/>
+  <input type="hidden" name="ship_method_name_1" value="None"/>
+  <input type="hidden" name="ship_method_price_1" value="0"/>
+
+  <input type="hidden" name="tax_rate" value="0"/>
+  <input type="hidden" name="tax_us_state" value="MN"/>
+
+  <input type="hidden" name="_charset_"/>
+
+  <input type="image" name="Google Checkout" alt="Fast checkout through Google"
+src="http://checkout.google.com/buttons/checkout.gif?merchant_id=<%= line_item.ct_roster.ct_session.ct_instructor.google_account %>&w=180&h=46&style=white&variant=text&loc=en_US"
+height="46" width="180"/>
+
+</form></td>
+						<td>
+							<% form_tag :action => 'record_receipt', :id => line_item do %>
+		    					<%= text_field_tag 'google_receipt_number', '', :class => 'text' %><br>
+		    					<%= submit_tag "Submit Order Number", :class => 'button' %>
+		    				<% end %>
+						</td>
+					<% else %>
+						<td>Pending Approval</td>
+						<td><%= line_item.google_receipt_number.to_s %></td>
+					<% end %>
+	              </tr>
+	            <% end -%>
+            <% end -%>
+           </table>
+          <% end -%>
+          <% if !@membership_fees[0].nil? %>
+           <table width="60%">
+            <tr><th colspan="4">Membership Fees Due</th></tr> 
+            <tr>
+              <% if current_user.admin -%>
+	              <th width="25">&nbsp;</th>
+	          <% end -%>
+              <th align="left">Comment</th>
+              <th align="left" width="80">Amount</th>
+              <th align="left" width="150">Payment Due Date</th>
+            </tr>
+            <% for line_item in @membership_fees do -%>
+              <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+	            <% if current_user.admin -%>
+                	<td><%= check_box_tag "line_item_#{line_item.id}", "1", checked = false %></td>
+                <% end -%>
+                <td><%= line_item.comment %></td>
+                <td width="55"><%= number_to_currency(line_item.price) %></td>
+                <td valign="middle"><%= h line_item.payment_due_date.to_s(:dmyhm) %></td>
+	                <% if current_user.admin -%>
+						<td>&nbsp;</td>
+						<td><% if !line_item.google_receipt_number.to_s.nil? %><%= line_item.google_receipt_number.to_s %><% else %>N/A<% end %></td>
+					<% elsif line_item.google_receipt_number.nil? -%>
+						<td><form method="POST"
+	  action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/745736040683044"
+	      accept-charset="utf-8" target="_blank">
+	  <input type="hidden" name="item_name_1" value="YEAH Academy Membership Fees"/>
+	  <input type="hidden" name="item_description_1" value="YEAH Academy Purchase."/>
+	  <input type="hidden" name="item_quantity_1" value="1"/>
+	  <input type="hidden" name="item_price_1" value="<%= line_item.price %>"/>
+	  <input type="hidden" name="item_currency_1" value="USD"/>
+	  <input type="hidden" name="ship_method_name_1" value="None"/>
+	  <input type="hidden" name="ship_method_price_1" value="0"/>
+	
+	  <input type="hidden" name="tax_rate" value="0"/>
+	  <input type="hidden" name="tax_us_state" value="MN"/>
+	
+	  <input type="hidden" name="_charset_"/>
+	
+	  <input type="image" name="Google Checkout" alt="Fast checkout through Google"
+	src="http://checkout.google.com/buttons/checkout.gif?merchant_id=745736040683044&w=180&h=46&style=white&variant=text&loc=en_US"
+	height="46" width="180"/>
+	
+	</form></td>						
+							<td>
+								<% form_tag :action => 'record_receipt', :id => line_item do %>
+			    					<%= text_field_tag 'google_receipt_number', '', :class => 'text' %><br>
+			    					<%= submit_tag "Submit Receipt Number", :class => 'button' %>
+			    				<% end %>
+							</td>
+					<% else %>
+						<td>Pending Approval</td>
+						<td><%= line_item.google_receipt_number.to_s %></td>
+					<% end %>
+              </tr>
+            <% end -%>
+           </table>
+          <% end -%>
+          <% if !@charges[0].nil? -%>
+           <table width="60%">
+            <tr><th colspan="4">Charges/Fees due<br></th></tr> 
+            <tr>
+              <th width="25">&nbsp;</th>
+              <th align="left">Comment</th>
+              <th align="left" width="80">Amount</th>
+              <th align="left" colspan="2" width="150">Payment Due Date</th>
+            </tr>
+            <% for line_item in @charges do -%>
+              <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+                <td><%= check_box_tag "line_item_#{line_item.id}", "1", checked = false %></td>
+                <td><%= line_item.fee_log.comment %></td>
+                <% if @admin -%>
+                <td width="55">
+                <% else -%>
+                  <td width="80" colspan="2">
+                <% end -%>
+                <%= number_to_currency(line_item.price) %></td>
+                <td valign="middle"><%= h line_item.payment_due_date.to_s(:dmyhm) %></td>
+                <% if @admin -%>
+                  <td width="25">
+                  <% if line_item.order_id.nil? -%>
+                    <%= link_to image_tag("delete.png", :border=>0, :title=>"Delete Charge", :alt=>"Delete Charge"), { :action => 'destroy_charge', :params => {:id => line_item, :user => params[:id]} },
+                                       :confirm => "Are you sure?",
+                                       :method => :post %>
+                  <% end -%>
+                  </td>
+                <% end -%>
+<td><form method="POST"
+	  action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/745736040683044"
+	      accept-charset="utf-8" target="_blank">
+	  <input type="hidden" name="item_name_1" value="YEAH Academy Special Fees"/>
+	  <input type="hidden" name="item_description_1" value="YEAH Academy Purchase."/>
+	  <input type="hidden" name="item_quantity_1" value="1"/>
+	  <input type="hidden" name="item_price_1" value="<%= line_item.price %>"/>
+	  <input type="hidden" name="item_currency_1" value="USD"/>
+	  <input type="hidden" name="ship_method_name_1" value="None"/>
+	  <input type="hidden" name="ship_method_price_1" value="0"/>
+	
+	  <input type="hidden" name="tax_rate" value="0"/>
+	  <input type="hidden" name="tax_us_state" value="MN"/>
+	
+	  <input type="hidden" name="_charset_"/>
+	
+	  <input type="image" name="Google Checkout" alt="Fast checkout through Google"
+	src="http://checkout.google.com/buttons/checkout.gif?merchant_id=745736040683044&w=180&h=46&style=white&variant=text&loc=en_US"
+	height="46" width="180"/>
+
+</form></td>              </tr>
+            <% end -%>
+           </table>
+          <% end -%>

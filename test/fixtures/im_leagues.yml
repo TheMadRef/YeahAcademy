@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+league_for_divisions:
+  id:                 1
+  im_sport_id:        1
+  league_name:        "A-League"
+
+full_league_for_teams:
+  id:                 2
+  im_sport_id:        1
+  league_name:        "Waiting List"
+  max_allowed:        5
+
+empty_league_for_teams:
+  id:                 3
+  im_sport_id:        1
+  league_name:        "B League Waiting List"
+  max_allowed:        5
+  
+league_in_another_sport:
+  id:                 4
+  im_sport_id:        2
+  league_name:        "A-League"
+  max_allowed:        0

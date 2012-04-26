@@ -1,0 +1,15 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <h4>Transactions Pending Payment</h4>
+    <p>Click on the google checkout button to make a payment.  Each class is a unique payment to the specific instructor.  When done, please enter your receipt number to clear the item from the list and unlock your account, if appropriate.  You will receive a notification when your Google Payment is approved.</p>
+    <%= display_standard_flashes -%>
+    <div id="list-table">
+      	 <%= render :partial => 'pending_items_list' %>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+		<%= render :partial => 'home/side_links' %>
+  </div>
+</div>

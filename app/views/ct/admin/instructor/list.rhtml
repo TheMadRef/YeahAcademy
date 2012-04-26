@@ -1,0 +1,50 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Instructors</h3>
+    <div id="list-table">
+        <% form_tag :action => 'create' do %>
+	        <%= error_messages_for 'ct_instructor' %>
+          	<dl>
+            	<dt><% if $g_require_member_number %>Participant Number:<% else %>Email Address:<% end %></dt>
+            	<dd><%= text_field_tag 'participant_number', @participant_number, :class => 'text' %></dt>
+            	<dt>Google Account:</dt>
+            	<dd><%= text_field_tag 'google_account', @google_account, :class => 'text' %></dd>
+            	<dd><%= submit_tag "Add Instructor", :class => 'button' %></dd>
+          	</dl>
+	    <% end -%>
+      	<br class="clear" />
+      	<table cellspacing="0" cellpadding="0">
+        	<tr>
+          		<th align="left">Last, First</th>
+          		<th align="left">Mother</th>
+          		<th align="left">Email</th>
+          		<th align="left">Phone</th>
+          		<th colspan="2">&nbsp;</th>
+        	</tr>
+      		<% for instructor in @ct_instructors -%>
+		        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+         	 		<% if instructor.participant.nil? -%>
+          				<td colspan="3">Instructor not found. Instructors Participant may have been deleted.</td>
+        			<% else -%>             
+            			<td><%= link_to "#{h instructor.participant.last_name},&nbsp;#{h instructor.participant.first_name}", :controller => '/participant', :action => 'show', :id => instructor.participant_id -%></td>
+						<td><%= h instructor.participant.mi %></td>
+            			<td><%= link_to "#{h instructor.participant.email}", "mailto:#{instructor.participant.email}" %></td>
+            			<td align="center"><% if instructor.participant.phone.blank? %>-<% else %><%= h instructor.participant.phone %><% end %></td>
+			        	<td align="center"><%= link_to image_tag("more_details.png", :border=>0, :title =>"Instructor Detailed View", :alt=>"Instructor Detailed Vieew"), :action => 'show', :id => instructor %></td>
+			        <% end -%>
+			        <td align="center"><%= link_to image_tag("edit.png", :border=>0, :title =>"Edit Instructor", :alt=>"Edit Instructor"), :action => 'edit', :id => instructor  %></td>
+			        <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title =>"Remove Instructor", :alt=>"Remove Instructor"), { :action => 'destroy', :id => instructor }, :confirm => 'Are you sure?', :method => :post %></td>
+        		</tr>
+      		<% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@ct_instructor_pages, :window_size => 5) %></div>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

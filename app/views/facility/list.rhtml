@@ -1,0 +1,58 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Facilities</h3>
+    <div id="list-table">
+      <%= link_to 'Add New Facility', :action => 'new' %>
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Facility</th>
+          <th align="left">Supervisor</th>          
+          <th align="left" colspan="4">Address</th>
+        </tr>
+      <% for facility in @facilities -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <td valign="top"><%= link_to "#{h facility.facility_name}", :action => 'show', :id => facility %></td>
+          <td valign="top">
+            <% if !(facility.supervisor_name.blank? || facility.supervisor_email.blank?) -%>
+              <%= link_to "#{h facility.supervisor_name}", "mailto:#{facility.supervisor_email}" %>
+            <% elsif !facility.supervisor_name.blank? -%>
+              <%= h facility.supervisor_name %>
+            <% else -%>
+              Not Specified
+            <% end -%>
+          </td>
+          <td valign="top">
+            <% if !facility.address_1.blank? -%>
+              <%= h facility.address_1 %><br>
+              <% if !facility.address_2.blank? -%>
+                <%= h facility.address_2 %><br>              
+              <% end -%>              
+            <% end -%>
+            <% if !facility.city.blank? %><%= h facility.city %>, <% end -%><% if !facility.state.blank? %><%= h facility.state %> <% end -%><% if !facility.zip.blank? %><%= h facility.zip %><% end -%>&nbsp;
+          </td>
+          <td valign="top" align="center"><%= link_to image_tag("playing_area_add.png", :border=>0, :title=>"New Playing Area", :alt=>"New Playing Area"), :controller => 'playing_area', :action => 'new', :id => facility %></td>
+          <td valign="top" align="center"><%= link_to image_tag("edit.png", :border=>0, :title=>"Edit Term", :alt=>"Edit Term"), :action => 'edit', :id => facility %></td>
+          <td valign="top" align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Delete Term", :alt=>"Delete Term"), { :action => 'destroy', :id => facility }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@facility_pages, :window_size => 5) %></div>
+      <%= link_to 'Add New Facility', :action => 'new' %>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+     <% if $g_im_online -%>
+     <%= render :partial => '/im/admin/links' %>
+     <% end -%>
+     <% if $g_ct_online -%>
+     <%= render :partial => '/ct/admin/links' %>
+     <% end -%>
+     <% if $g_rt_online -%>
+     <%= render :partial => '/rt/admin/links' %>
+     <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>

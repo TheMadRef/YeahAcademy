@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+monday:
+  id:             1
+  im_sport_id:    1
+  dop_name:       "Monday" 
+tuesday:
+  id:             2
+  im_sport_id:    1
+  dop_name:       "Tuesday"

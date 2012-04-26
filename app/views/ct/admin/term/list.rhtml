@@ -1,0 +1,36 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Terms</h3>
+    <div id="list-table">
+      <%= link_to 'Add New Term', :action => 'new' %>
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Term</th>
+          <th align="left">Registration Start</th>
+          <th align="left">Registration End</th>
+          <th colspan="4">&nbsp;</th>
+        </tr>
+      <% for term in @terms -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <td><%= link_to "#{h term.term_name}", :action => 'show', :id => term %></td>
+          <td><% if !term.default_class_registration_start.nil? %><%= h term.default_class_registration_start.to_s(:dmyhm) %><% end %></td>
+          <td><% if !term.default_class_registration_end.nil? %><%= h term.default_class_registration_end.to_s(:dmyhm) %><% end %></td>
+          <td align="center"><%= link_to image_tag("class_add.png", :border=>0, :title=>"New Class", :alt=>"New Class"), :controller => '/ct/admin/class', :action => 'new', :id => term %></td>
+          <td align="center"><%= link_to image_tag("edit.png", :border=>0, :title=>"Edit Term", :alt=>"Edit Term"), :action => 'edit', :id => term %></td>
+          <td align="center"><%= link_to image_tag("copy.png", :border=>0, :title=>"Copy Term", :alt=>"Copy Term"), :action => 'copy_term', :id => term %></td>
+          <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Delete Term", :alt=>"Delete Term"), { :action => 'destroy', :id => term }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@term_pages, :window_size => 5) %></div>
+      <%= link_to 'Add New Term', :action => 'new' %>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+Term - add.png, cross.png, pencil.png
+Term - Add Sport - sport_football.png
+Sport - add.png, cross.png, pencil.png
+Sport - Add League - chart_orginaization.png
+Sport - Add Day of Play - calendar_add.png
+League - add.png, cross.png, pencil.png
+League - Add Division - tab_add.png
+Day of Play - add.png, cross.png, pencil.png
+Division - add.png, cross.png, pencil.png
+Division - Add Team - group_add.png
+Team - add.png, cross.png, pencil.png
+Team - Change Division - arrow_switch.png
+Team - Roster - group.png
+Team - Approve - text
+Roster - Make Captain - text
+User - add.png, cross.png, pencil.png
+Participant - add.png, cross.png, pencil.png
+
+Term - add.png, cross.png, pencil.png
+Term - Add Class - bell_add.png
+Class - add.png, cross.png, pencil.png
+Class - Add Session - book_add.png
+Session - add.png, cross.png, pencil.png
+Session - Roster - group.png
+Roster - Approve - text
+
+Colors - add.png, cross.png, pencil.png
+Roster - add.png, cross.png, pencil.png

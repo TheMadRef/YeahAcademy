@@ -1,0 +1,41 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+		<h3>Class Schedule for <%= @ct_session.ct_class.term.term_name %> : <%= @ct_session.ct_class.class_name %> : <%= @ct_session.s_class_name %></h3>
+    <p><b>Main Information</b>
+    	Start Date: <%= @ct_session_schedule.session_start_date.to_s(:mdy) %><br>
+  		End Date: <%= @ct_session_schedule.session_end_date.to_s(:mdy) %><br>
+  		<% if !@ct_session_schedule.playing_area_id.nil? %>Location: <%= playing_area_name(@ct_session_schedule.playing_area_id) %><br><% end -%>
+  		<b>Weekly Schedule</b><br>
+  		<% if @ct_session_schedule.meet_monday -%>
+  			Mondays: <%= @ct_session_schedule.monday_start_time.to_s(:hm) %>:<%= @ct_session_schedule.monday_end_time.to_s(:hm) %><br>
+  		<% end -%>
+  		<% if @ct_session_schedule.meet_tuesday -%>
+  			Tuesdays: <%= @ct_session_schedule.tuesday_start_time.to_s(:hm) %>:<%= @ct_session_schedule.tuesday_end_time.to_s(:hm) %><br>
+  		<% end -%>
+  		<% if @ct_session_schedule.meet_wednesday -%>
+  			Wednesdays: <%= @ct_session_schedule.wednesday_start_time.to_s(:hm) %>:<%= @ct_session_schedule.wednesday_end_time.to_s(:hm) %><br>
+  		<% end -%>
+  		<% if @ct_session_schedule.meet_thursday -%>
+  			Thursdays: <%= @ct_session_schedule.thursday_start_time.to_s(:hm) %>:<%= @ct_session_schedule.thursday_end_time.to_s(:hm) %><br>
+  		<% end -%>
+  		<% if @ct_session_schedule.meet_friday -%>
+  			Fridays: <%= @ct_session_schedule.friday_start_time.to_s(:hm) %>:<%= @ct_session_schedule.friday_end_time.to_s(:hm) %><br>
+  		<% end -%>
+  		<% if @ct_session_schedule.meet_saturday -%>
+  			Saturdays: <%= @ct_session_schedule.saturday_start_time.to_s(:hm) %>:<%= @ct_session_schedule.saturday_end_time.to_s(:hm) %><br>
+  		<% end -%>
+  		<% if @ct_session_schedule.meet_sunday -%>
+  			Sundays: <%= @ct_session_schedule.sunday_start_time.to_s(:hm) %>:<%= @ct_session_schedule.sunday_end_time.to_s(:hm) %><br>
+  		<% end -%>
+    </p>
+
+    <%= link_to 'Edit', :action => 'edit', :id => @ct_session %> | <%= link_to 'Roster', :action => 'list', :controller => '/ct/roster', :id => @ct_session %> | <%= link_to 'Back', :action => 'list', :controller => '/ct/admin/class_session' %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

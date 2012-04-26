@@ -1,0 +1,75 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Class Information for <%= h @ct_class.class_name %></h3>
+		<% if @ct_sessions[0].nil? -%>
+			<h4>No Sessions exist for this class</h4>
+		<% else -%>
+       <div id="list-table">
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <th align="left">Session</th>
+            <th align="left">Instructor</th>
+            <th align="left">Status</th>
+            <th align="left">Price</th>
+            <th align="left">Comments</th>
+						<th align="center">Sign Up!</th>
+          </tr>
+          <% for session in @ct_sessions -%>
+            <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+              <td align="left" valign="top"><%= h session.s_class_name %></td>
+              <td align="left" valign="top">
+              	<% if !session.ct_instructor.nil? %>
+              		<%= session.ct_instructor.participant.first_name %> <%= session.ct_instructor.participant.last_name %>
+              	<% else -%>
+              		N/A
+              	<% end -%>
+              </td>
+            	<% if session.s_early_bird_date > Time.now && session.s_registration_start < Time.now -%>
+            		<td nowrap valign="top">Early Bird until<br><%= session.s_early_bird_date.to_s(:dmyhm) %></td>
+            		<td valign="top"><%= number_to_currency(session.s_price - session.s_early_bird_discount) %></td>
+            	<% elsif session.s_late_date < Time.now && session.s_registration_end > Time.now -%>
+            		<td nowrap valign="top">Late Registration until<br><%= session.s_registration_end.to_s(:dmyhm) %></td>
+            		<td valign="top"><%= number_to_currency(session.s_price + session.s_late_fee) %></td>
+            	<% elsif session.s_registration_start < Time.now && session.s_registration_end > Time.now -%>
+            		<td nowrap valign="top">Open until<br><%= session.s_late_date.to_s(:dmyhm) %></td>
+            		<td valign="top"><%= number_to_currency(session.s_price) %></td>
+            	<% elsif session.s_registration_start > Time.now -%>
+            		<td nowrap valign="top">Registration Starts<br><%= session.s_registration_start.to_s(:dmyhm) %></td>
+            		<td valign="top"><%= number_to_currency(session.s_price) %></td>
+							<% else -%>
+								<td nowrap valign="top">Registration Closed</td>
+								<td align="center" valign="top">-</td>
+							<% end -%>
+              <td align="left" valign="top"><%= session.s_comment %></td>
+              <% if session.s_registration_start < Time.now && session.s_registration_end > Time.now -%>
+	              <% if CtRoster.roster_count_for_class_session(session) >= session.s_roster_maximum %>
+	                <td align="center" valign="middle"><span class="division_closed">FULL</span></td>
+	              <% elsif is_category_allowed_in_session?(session.id) -%>
+	                <td align="center" valign="middle">
+	                	<span class="division_open">
+		                	<%= link_to image_tag("join_class.png", :border=>0, :title =>"Click Here to Sign Up", :alt=>"Click Here to Sign Up"), :controller => '/ct/roster', :action => 'join_class', :id => session %>&nbsp;
+		                	<% class_spots = session.s_roster_maximum - CtRoster.roster_count_for_class_session(session) 
+		                	if class_spots <= 5 -%> 
+		                		<span class="hurry"><%= class_spots %> left!</span>
+		                	<% end -%>
+	              		</span>
+	              	</td>
+	              <% else -%>
+	                <td align="center"><span class="division_closed">N/A</span></td>
+	              <% end -%>
+							<% else -%>
+								<td align="center" valign="middle"><span class="division_closerd">CLOSED</span></td>
+							<% end %>
+            </tr>
+	        <% end -%>
+        </table>
+	    </div>
+    <% end -%>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/client/links' %>
+  </div>
+</div>

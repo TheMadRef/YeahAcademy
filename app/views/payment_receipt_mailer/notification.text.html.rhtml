@@ -1,0 +1,3 @@
+<p>*** Facilitrax Payment Notification ***</p>
+<p>A payment for <%= number_to_currency(@total) %> has been made by <%= @participant %> via Order <%= @order %></p>
+<p>Please go to <%= link_to "Facilitrax", "http://#{$g_return_url}/admin" %> for detailed information and reports.</p>

@@ -1,0 +1,92 @@
+<%= error_messages_for 'master_setting' %>
+
+<!--[form:master_setting]-->
+<table>
+<tr><td>
+<dt>System Name (Overall Home Page):</dt>
+<dd><%= text_field 'master_setting', 'system_name', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Welcome Message:</dt>
+<dd><%= text_area 'master_setting', 'welcome_message', :class => 'text-area' %></dd>
+</td></tr>
+
+<tr><td>
+Require Member ID:&nbsp;&nbsp;
+<%= select('master_setting', 'require_member_number', [["Yes Require ID Number",true],["No Use Email Address Instead",false]]) %>
+</td></tr>
+
+<tr><td>
+Require that Users have an existing Participation Record before Creating an Account.  Users must match their Member ID, First Name and Last Name when this option is selected.&nbsp;&nbsp;
+<%= select('master_setting', 'verify_participants', [["No",false],["Yes",true]]) %>
+</td></tr>
+
+<tr><td>
+Require that Users enter a phone number to sign up.&nbsp;&nbsp;
+<%= select('master_setting', 'require_phone_number', [["No",false],["Yes",true]]) %>
+</td></tr>
+
+<tr><td>
+Require that Users enter the address to sign up.&nbsp;&nbsp;
+<%= select('master_setting', 'require_address', [["No",false],["Yes",true]]) %>
+</td></tr>
+
+<tr><td>
+Require that Users select a category to sign up.&nbsp;&nbsp;
+<%= select('master_setting', 'require_category', [["No",false],["Yes",true]]) %>
+</td></tr>
+
+<tr><td>
+Require that Users enter Date of Birth to sign up.&nbsp;&nbsp;
+<%= select('master_setting', 'require_DOB', [["No",false],["Yes",true]]) %><p>Mandatory if you want to use Age Based restrictions</p>
+</td></tr>
+
+<tr><td>
+<dt>Payment Due Setting:</dt>
+<dd><%= select('master_setting', 'default_payment_due_setting', [["Set Due Date Individually",false],["Use Set Number of Days to Pay",true]]) %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Number of Days to Pay</dt>
+<dd><%= text_field 'master_setting', 'default_payment_due_days', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Auto Clear Over Due Transactions:</dt>
+<dd><%= select('master_setting', 'auto_delete_past_due_items', [["No",false],["Yes",true]]) %><p>Deleted transactions are non-recoverable</p></dd>
+</td></tr>
+
+<tr><td>
+<dt>Require membership or application fees</dt>
+<dd><%= select('master_setting', 'require_membership_fee', [["No",false],["Yes",true]]) %></dd>
+</td></tr>
+
+<tr><td>
+<dt>Application Fee</dt>
+<dd><%= text_field 'master_setting', 'application_fee', :class => 'text' %><p>One time fee added when account is created</p></dd>
+</td></tr>
+
+<tr><td>
+<dt>Membership Fee</dt>
+<dd><%= text_field 'master_setting', 'membership_fee', :class => 'text' %><p>Yearly Membership Fees</p></dd>
+</td></tr>
+
+
+<tr><td>
+Require Users to Sign Master Terms and Conditions to Create an Account:&nbsp;&nbsp;
+<%= select('master_setting', 'master_terms_and_conditions', [["No",false],["Yes",true]]) %>
+</td></tr>
+
+<tr><td>
+<dt>Master Terms and Conditions text</dt>
+<dd><%= text_area 'master_setting', 'master_terms_and_conditions_text', :class => 'text' %></dd>
+</td></tr>
+
+<tr><td>
+	<dt>Log Out Link</dt>
+	<dd><%= text_field 'master_setting', 'logout_link', :class => 'text' %><p>If you want to return users to your website on logout</p></dd>
+</td></tr>
+</table>
+<!--[eoform:master_setting]-->
+

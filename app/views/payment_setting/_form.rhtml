@@ -1,0 +1,67 @@
+<%= error_messages_for 'payment_setting' %>
+
+<!--[form:payment_setting]-->
+<table>
+	<% if @payment_setting.cfm_authorization_authorize_net -%>
+		<tr><td>
+			<dt><label for="payment_setting_authorize_net">Accept Credit Cards with Authorize.Net</label></dt>
+			<dd><%= select('payment_setting', 'authorize_net', [["No",false],["Yes",true]]) %></dd>
+		</td></tr>
+	
+		<tr><td>
+			<dt><label for="payment_setting_new_authorize_net_login">Authorize.Net Login</label></dt>
+			<dd><%= text_field 'payment_setting', 'new_authorize_net_login'  %><p>(Leave BLANK unless unless using your own Authorize.Net account.  Login to Authorize.Net to obtain.)</p></dd>
+		</td></tr>
+	
+		<tr><td>
+			<dt><label for="payment_setting_new_authorize_net_transaction_key">Authorize.Net Transaction Key</label></dt>
+			<dd><%= text_field 'payment_setting', 'new_authorize_net_transaction_key'  %><p>(Leave BLANK unless unless using your own Authorize.Net account.  Login to Authorize.Net to obtain.)</p></dd>
+		</td></tr>
+	<% end -%>
+	
+	<% if @payment_setting.cfm_authorization_paypal -%>
+		<tr><td>
+			<dt><label for="payment_setting_paypal">Accept PayPal Payments</label></dt>
+			<dd><%= select('payment_setting', 'paypal', [["No",false],["Yes",true]]) %></dd>
+		</td></tr>
+		
+		<tr><td>
+			<dt><label for="payment_setting_new_paypal_user_name">Paypal API User Name</label><br/></dt>
+			<dd><%= text_field 'payment_setting', 'new_paypal_user_name'  %><p>(Leave BLANK unless unless using your own PayPal account.  Login to PayPal to obtain.)</p></dd>
+		</td></tr>
+		
+		<tr><td>
+			<dt><label for="payment_setting_new_paypal_password">Paypal API Password</label></dt>
+			<dd><%= text_field 'payment_setting', 'new_paypal_password'  %><p>(Leave BLANK unless unless using your own PayPal account.  Login to PayPal to obtain.)</p></dd>
+		</td></tr>
+		
+		<tr><td>
+			<dt><label for="payment_setting_new_paypal_signature">Paypal API Signature</label></dr>
+			<dd><%= text_field 'payment_setting', 'new_paypal_signature'  %><p>(Leave BLANK unless unless using your own PayPal account.  Login to PayPal to obtain.)</p></dd>
+		</td></tr>
+	<% end -%>
+	
+	<% if @payment_setting.cfm_authorization_nelix -%>
+		<tr><td>
+			<dt><label for="payment_setting_paypal">Accept NeLiX TransaX Payments</label></dt>
+			<dd><%= select('payment_setting', 'nelix', [["No",false],["Yes",true]]) %></dd>
+		</td></tr>
+		
+		<tr><td>
+			<dt><label for="payment_setting_new_paypal_user_name">NeLiX Key ID</label><br/></dt>
+			<dd><%= text_field 'payment_setting', 'new_nelix_user_name'  %></dd>
+		</td></tr>
+	<% end -%>
+
+	<tr><td>
+		<dt><label for="payment_setting_receive_payment_notifications">Automatic Payment Notifications</label></dt>
+		<dd><%= select('payment_setting', 'receive_payment_notifications', [["Off",false],["On",true]]) %></dd>
+	</td></tr>
+	
+	<tr><td>
+		<dt><label for="payment_setting_payment_notification_email">Payment Notification Email</label></dr>
+		<dd><%= text_field 'payment_setting', 'payment_notification_email'  %><p>(email address receiving automatic payment notifications if on)</p></dd>
+	</td></tr>
+</table>
+<!--[eoform:payment_setting]-->
+

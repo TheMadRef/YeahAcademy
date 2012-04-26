@@ -1,0 +1,16 @@
+    <p><b>Add Fee/Charge to Account</b></p>
+    <% form_tag :action => 'apply_charge' do %>
+      <%= error_messages_for 'payment_item', 'fee_log' %>
+        <dl>
+          <dd><%= hidden_field 'fee_log', 'participant_id' %></dd>
+          <dt>Amount:</dt>
+          <dd><%= text_field 'fee_log', 'amount',  :class => 'text' %></dd>
+
+          <dt>Comment</dt>
+          <dd><%= text_field 'fee_log', 'comment', :class => 'text' %></dd>
+
+					<dt>Due Date</dt>
+					<dd><%= datetime_select 'line_item', 'payment_due_date', :start_year => Time.now.year, :end_year => Time.now.year + 3, :minute_step => 60 %></dd>
+          <dd><%= submit_tag "Add Fee/Charge", :class => 'button' %></dd>
+        </dl>
+      <% end -%>

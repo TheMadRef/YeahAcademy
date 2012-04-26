@@ -1,0 +1,27 @@
+          <% if $g_master_terms_and_conditions %>
+            <tr><td>
+            <b>Please Accept Terms and Conditions:</b> <%= MasterSetting.find(1).master_terms_and_conditions_text %><br>
+            Do you Accept Terms and Conditions <select id="participant_terms_and_conditions" name="participant[terms_and_conditions]"><option value="false">No</option><option value="true" <%= "selected" if @participant.terms_and_conditions %>>Yes</option></select>
+            </td></tr>
+          <% end -%>
+    
+          <% if $g_master_im_terms_and_conditions %>
+            <tr><td>
+            <b>Please Accept League Play Terms and Conditions:</b> <%= ImSetting.find(1).master_im_terms_and_conditions_text %> <br>
+            Do you Accept Terms and Conditions <select id="participant_im_terms_and_conditions" name="participant[im_terms_and_conditions]"><option value="false">No</option><option value="true" <%= "selected" if @participant.im_terms_and_conditions %>>Yes</option></select>
+            </td></tr>
+          <% end -%>
+
+          <% if $g_master_ct_terms_and_conditions %>
+            <tr><td>
+            <b>Please Accept Class Registration Terms and Conditions:</b> <%= CtSetting.find(1).master_ct_terms_and_conditions_text %> <br>
+            Do you Accept Terms and Conditions <select id="participant_ct_terms_and_conditions" name="participant[ct_terms_and_conditions]"><option value="false">No</option><option value="true" <%= "selected" if @participant.ct_terms_and_conditions %>>Yes</option></select>
+            </td></tr>
+          <% end -%>
+
+          <% if $g_master_rt_terms_and_conditions %>
+            <tr><td>
+            <b>Please Accept Employee Terms and Conditions:</b> <%= RtSetting.find(1).master_rt_terms_and_conditions_text %> <br>
+            Do you Accept Terms and Conditions <select id="participant_rt_terms_and_conditions" name="participant[rt_terms_and_conditions]"><option value="false">No</option><option value="true" <%= "selected" if @participant.rt_terms_and_conditions %>>Yes</option></select>
+            </td></tr>
+          <% end -%>

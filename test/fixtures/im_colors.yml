@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+blue:
+  id:             1
+  color_name:     "blue"
+
+green:
+  id:             2
+  color_name:     "green"
+
+gold:
+  id:             3
+  color_name:     "gold"
+
+black:
+  id:             4
+  color_name:     "black"
+
+white:
+  id:             5
+  color_name:     "white"
+  

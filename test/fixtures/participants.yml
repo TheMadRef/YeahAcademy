@@ -1,0 +1,28 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+Miguel:
+  id:              1
+  member_id:       "1b309549ba15b6b5d915dc9d182877c7c2d30da5"
+  first_name:      "Miguel"
+  last_name:       "Cartagena"
+  mi:              "A"
+  im_active:       1
+  email:           "miguel@recsolutions.com"
+
+Kristi:
+  id:              2
+  member_id:       "e3407d924a7eb99096a3d34c0d45864843048248"
+  first_name:      "Kristi"
+  last_name:       "Cartagena"
+  mi:              "A"
+  im_active:       1
+  email:           "k_b_526@hotmail.com"
+ 
+Not_IM_Eligible:
+  id:              3
+  member_id:       "e3407d924a7eb99096a3d34c0d45864843048248"
+  first_name:      "Tony"
+  last_name:       "Fontenot"
+  mi:              "B"
+  im_active:       0
+  email:           "tony@recsolutions.com"

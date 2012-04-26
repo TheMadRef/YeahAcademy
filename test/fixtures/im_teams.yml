@@ -1,0 +1,90 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+team_for_league_1:
+  id:                    1
+  im_league_id:          2
+  team_name:             "League Team 1"
+  team_number:           1
+  im_color_id:           1
+  approved:              false
+  password:              "jghejkjskjghkjs"
+    
+team_for_league_2:
+  id:                    2
+  im_league_id:          2
+  team_name:             "League Team 2"
+  team_number:           2
+  im_color_id:           1
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_league_3:
+  id:                    3
+  im_league_id:          2
+  team_name:             "League Team 3"
+  team_number:           3
+  im_color_id:           1
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_league_4:
+  id:                    4
+  im_league_id:          2
+  team_name:             "League Team 4"
+  team_number:           4
+  im_color_id:           1
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_league_5:
+  id:                    5
+  im_league_id:          2
+  team_name:             "League Team 5"
+  team_number:           5
+  im_color_id:           1
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_division_1:
+  id:                    6
+  im_division_id:        2
+  team_name:             "Division Team 1"
+  team_number:           1
+  im_color_id:           1
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_division_2:
+  id:                    7
+  im_division_id:        2
+  team_name:             "Division Team 2"
+  team_number:           2
+  im_color_id:           2
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_division_3:
+  id:                    8
+  im_division_id:        2
+  team_name:             "Division Team 3"
+  team_number:           3
+  im_color_id:           3
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_division_4:
+  id:                    9
+  im_division_id:        2
+  team_name:             "Division Team 4"
+  team_number:           4
+  im_color_id:           4
+  approved:              false
+  password:              "jghejkjskjghkjs"
+  
+team_for_division_5:
+  id:                    10
+  im_division_id:        2
+  team_name:             "Division Team 5"
+  team_number:           5
+  im_color_id:           5
+  approved:              false
+  password:              "jghejkjskjghkjs"

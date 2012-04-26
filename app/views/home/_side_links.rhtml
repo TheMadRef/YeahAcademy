@@ -1,0 +1,22 @@
+    <% if $g_admin -%>  
+  	 <% if $g_im_online -%>
+  	   <%= render :partial => '/im/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_ct_online -%>
+    	 <%= render :partial => '/ct/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_rt_online -%>
+    	 <%= render :partial => '/rt/admin/links' %>
+  	 <% end -%>
+     <%= render :partial => '/admin/links' %>
+    <% else -%>
+  	 <% if $g_im_online -%>
+  	   <%= render :partial => '/im/client/links' %>
+  	 <% end -%>
+  	 <% if $g_ct_online -%>
+    	 <%= render :partial => '/ct/client/links' %>
+  	 <% end -%>
+  	 <% if $g_rt_online -%>
+    	 <%= render :partial => '/rt/client/links' %>
+  	 <% end -%>
+    <% end -%>

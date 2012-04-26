@@ -1,0 +1,29 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>New Session - Select a Class</h3>
+    <div id="list-table">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Class</th>
+          <th align="left">Term</th>
+          <th align="left">Abbreviation</th>
+        </tr>
+      <% for ct_class in @ct_classes -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <td><%= link_to ct_class.class_name, :controller => '/ct/admin/class_session', :action => 'new', :id => ct_class %></td>
+          <td><%= h ct_class.term.term_name %></td>
+          <td><%= h ct_class.abbreviation %></td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@ct_class_pages, :window_size => 5) %></div>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

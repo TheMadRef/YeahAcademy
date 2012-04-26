@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+sport_requires_color:
+  id:                               1
+  term_id:                          1
+  sport_name:                       "Flag Football"
+  start_date:                       Time.now
+  end_date:                         Time.now + 10
+  roster_end_date:                  Time.now + 20
+  require_color:                    1
+  price:                            25
+  roster_minimum:                   2
+  roster_maximum:                   3
+  
+sport_does_not_require_color:
+  id: 2
+  term_id:                          1
+  sport_name:                       "Basketball"
+  start_date:                       Time.now
+  end_date:                         Time.now + 10
+  roster_end_date:                  Time.now + 20
+  require_color:                    0
+  price:                            25
+  roster_minimum:                   2
+  roster_maximum:                   3
+  

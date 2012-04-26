@@ -1,0 +1,39 @@
+<%= error_messages_for 'email_custom_text' %>
+
+<!--[form:email_custom_text]-->
+<table>
+	<tr>
+		<td><b><label for="email_custom_text_master_header">Master Header</label></b>: will be used on all emails unless overriden by a feature specific header</td>
+	</tr>
+	<tr>
+		<td>
+			<dd><%= text_area 'email_custom_text', 'master_header'  %></dd>
+		</td>
+	</tr>
+	<tr>
+		<td><b><label for="email_custom_text_master_footer">Master Footer</label></b>: will be used on all emails unless overriden by a feature specific footer</td>
+	</tr>
+	<tr>
+		<td>
+			<dd><%= text_area 'email_custom_text', 'master_footer'  %></dd>
+		</td>
+	</tr>
+	<tr>
+		<td><b><label for="email_custom_text_receipt_header">Reeipt Header</label></b>: will be used on email receipts sent to participants</td>
+	</tr>
+	<tr>
+		<td>
+			<dd><%= text_area 'email_custom_text', 'receipt_header'  %></dd>
+		</td>
+	</tr>
+	<tr>
+		<td><b><label for="email_custom_text_receipt_footer">Receipt Footer</label></b>: will be used on email receipts sent to participants</td>
+	</tr>
+	<tr>
+		<td>
+			<dd><%= text_area 'email_custom_text', 'receipt_footer'  %></dd>
+		</td>
+	</tr>
+</table>
+<!--[eoform:email_custom_text]-->
+

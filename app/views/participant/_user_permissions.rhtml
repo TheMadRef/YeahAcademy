@@ -1,0 +1,88 @@
+<table>
+  <tr>
+    <th colspan="2" align="left"><font size="4">User Permissions</font></th>
+  </tr>
+  <% if $g_im_online -%>       
+    <tr>
+      <td width="10%" nowrap>IM Active:&nbsp;&nbsp;</td>
+      <td><%= select('participant', 'im_active', [["No",false],["Yes",true]]) %></td>
+    </tr>
+  <% end -%>
+  
+  <% if $g_ct_online -%>       
+    <tr>
+      <td width="10%" nowrap>CT Active:&nbsp;&nbsp;</td>
+      <td><%= select('participant', 'ct_active', [["No",false],["Yes",true]]) %></td>
+    </tr>
+  <% end -%>
+  
+  <% if $g_rt_online -%>       
+    <tr>
+      <td width="10%" nowrap>RT Active:&nbsp;&nbsp;</td>
+      <td><%= select('participant', 'rt_active', [["No",false],["Yes",true]]) %>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table width="50%" border="1" cellspacing="3" cellpadding="2">
+          <tr><th colspan="3"><font size="4">RefTrack User Group Assigments</font></th></tr>
+          <tr>
+            <% if !@rt_employee_groups[0].nil? -%>
+              <th nowrap>Employee Groups</th>
+            <% end -%>
+            <% if !@rt_non_employee_groups[0].nil? -%>
+              <th nowrap>Non Employee Groups</th>
+            <% end -%>
+            <% if !@rt_evaluator_groups[0].nil? -%>
+              <th nowrap>Evaluator/Power Groups</th>
+            <% end -%>
+          </tr>
+          <tr>
+            <% if !@rt_employee_groups[0].nil? -%>
+              <td valign="top">
+                <div id="list-table">
+                  <table cellspacing="0" cellpadding="0">                  
+                    <% for user_group in @rt_employee_groups -%>
+                      <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+                        <td valign="top"><%= check_box_tag "user_group_#{user_group.id}", "1", checked = participant_in_user_group(@participant.id, user_group.id) %></td>
+                        <td><%= h user_group.user_group_name %></td>
+                      </tr>      
+                    <% end -%>
+                  </table>
+                </div>
+              </td>
+            <% end -%>
+            <% if !@rt_non_employee_groups[0].nil? -%>
+              <td valign="top">
+                <div id="list-table">
+                  <table cellspacing="0" cellpadding="0">                  
+                    <% for user_group in @rt_non_employee_groups -%>
+                      <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+                        <td valign="top"><%= check_box_tag "user_group_#{user_group.id}", "1", checked = participant_in_user_group(@participant.id, user_group.id) %></td>
+                        <td><%= h user_group.user_group_name %></td>
+                      </tr>      
+                    <% end -%>
+                  </table>
+                </div>
+              </td>
+            <% end -%>
+            <% if !@rt_evaluator_groups[0].nil? -%>
+              <td  valign="top">
+                <div id="list-table">
+                  <table cellspacing="0" cellpadding="0">                  
+                    <% for user_group in @rt_evaluator_groups -%>
+                      <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+                        <td valign="top"><%= check_box_tag "user_group_#{user_group.id}", "1", checked = participant_in_user_group(@participant.id, user_group.id) %></td>
+                        <td><%= h user_group.user_group_name %></td>
+                      </tr>      
+                    <% end -%>
+                  </table>
+                </div>
+              </td>
+            <% end -%>
+          </tr>
+        </table>             
+      </td>
+    <% end -%>
+    </td>
+  </tr>
+</table>

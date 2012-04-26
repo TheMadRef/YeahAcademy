@@ -1,0 +1,17 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <p>
+    <% for column in CtSetting.content_columns %>
+      <b><%= column.human_name %>:</b> <%=h @ct_setting.send(column.name) %><br/>
+    <% end %>
+    </p>
+    
+    <%= link_to 'Edit', :action => 'edit' %></div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

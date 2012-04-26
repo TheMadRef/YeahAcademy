@@ -1,0 +1,27 @@
+<div id="primaryContent_columnless">
+	<div id="columnA_columnless">
+   <%= display_standard_flashes -%>
+   <table width="90%">
+    <tr>
+	 <% if $g_im_online -%>
+      <td valign="top">
+    	   <%= render :partial => '/im/admin/links' %>
+      </td>
+	 <% end -%>
+	 <% if $g_ct_online -%>
+      <td valign="top">
+      	 <%= render :partial => '/ct/admin/links' %>
+      </td>
+	 <% end -%>
+	 <% if $g_rt_online -%>
+      <td valign="top">
+      	 <%= render :partial => '/rt/admin/links' %>
+      </td>
+  	 <% end -%>
+        <td valign="top">
+          <%= render :partial => '/admin/links' %>        
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

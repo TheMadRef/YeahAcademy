@@ -1,0 +1,53 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>New Participant</h3>
+    <% form_tag :action => 'create' do %>
+      <p><%= error_messages_for 'participant' %></p>
+      <table>
+        <tr>
+          <td valign="top" width="325">
+            <p align="center"><font size="4">Participant Information</font></p>
+            <dl>          
+							<table>
+              <% if $g_require_member_number %>      
+                <tr><td>
+                	<dt>Participant Number:</dt>
+                	<dd><%= text_field 'participant', 'participant_number', :class => 'text'  %></dd>
+              	</td></tr>
+              <% end -%>
+              <%= render :partial => 'form' %>
+              <tr><td>  
+              	<dt>Family Member Of:</dt>
+      	        <dd><%= text_field 'participant', 'parent_participant_number', :class => 'text' %><p>Enter ID Number of Head of Household;<br>leave blank if main participant</p></dd>
+        	    </td></tr>
+              </table>
+            </dl>
+          </td>
+          <td valign="top">
+            <dl>
+              <%= render :partial => 'user_permissions' %>  
+            </dl>
+          </td>
+        </tr>
+      </table>
+      <dl>
+        <dd><%= submit_tag "Create", :class => 'button' %> | <%= link_to 'Back', :action => 'list' %></dd>
+      </dl>
+    <% end %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+	 <% if $g_im_online -%>
+	   <%= render :partial => '/im/admin/links' %>
+	 <% end -%>
+	 <% if $g_ct_online -%>
+  	 <%= render :partial => '/ct/admin/links' %>
+	 <% end -%>
+	 <% if $g_rt_online -%>
+  	 <%= render :partial => '/rt/admin/links' %>
+	 <% end -%>
+   <%= render :partial => '/admin/links' %>
+  </div>
+</div>

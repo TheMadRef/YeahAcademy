@@ -1,0 +1,7 @@
+<p>Dear <%= @captain %>:</p>
+
+<p><%= @free_agent %> has declined your invitation to join your team, <%= @team_name %></p>
+
+<p>Login to <%= link_to "IMOnline", "http://#{ @url }" %> to view your <%= link_to "current roster", "http://#{h @url}/im/roster/list/#{h @team_id}" %>.</p>
+
+<p>Thanks for your continued support!</p>

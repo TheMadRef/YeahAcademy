@@ -1,0 +1,24 @@
+<p>***ClassTrack Online Game Notification ***</p>
+<p>Dear <%= @participant %>:</p>
+<p>A session you were signed up for has been cancelled from our system. Class session details are below:</p>
+<table width="100%" cellpadding=2 cellspacing=2 border=0>
+	<tr>
+		<td>Session Name:</td>
+		<td><%= @session_name %></td>
+	</tr>
+	<tr>
+		<td>Date:</td>
+		<td><%= @session_date.to_s(:date_with_week_day) %></td>
+	</tr>
+	<tr>
+		<td>Time:</td>
+		<td><%= @start_time.to_s(:hm) %></td>
+	</tr>
+	<tr>
+		<td>Location:</td>
+		<td><%= @facility %></td>
+	</tr>
+</table>
+	
+<p>We apologize for the inconvenience.  Please go to <%= link_to "ClassTrack Online", "http://#{$g_return_url}/ct/client/home" %> for more information.</p>
+<p>ClassTrack Online Administration</p>

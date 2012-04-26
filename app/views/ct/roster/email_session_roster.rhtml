@@ -1,0 +1,23 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Email Class Sesion <%= @ct_session.ct_class.class_name %>:<%= @ct_session.s_class_name %></h3>
+    <% form_tag :action => 'send_email_to_roster', :id => @ct_session.id  do %>
+      <dl>
+	      <dt><label for="email_subject">Subject</label></dt>
+	      <dd><%= text_field_tag 'subject', nil, :size => "67" %></dd>
+	      
+	      <dt><label for="email_text">Body</label></dt>
+	      <dd><%= text_area_tag 'body', nil, :rows => "15", :cols => "50" %></dd>
+	      
+        <dd><%= submit_tag "Send Email", :class => 'button' %> | <%= link_to 'Back', :action => 'list' %></dd>
+      </dl>
+    <% end %>		
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+		<%= render :partial => '/ct/admin/links' %>
+  	<%= render :partial => '/admin/links' %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Your Class Sessions</h3>
+    <div id="list-table">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Term</th>
+          <th align="left">Class</th>
+          <th align="left">Session</th>
+          <th align="left">Abbreviation</th>
+          <th>Roster (#)</th>
+          <th colspan="1">&nbsp;</th>
+        </tr>
+      <% for ct_session in @ct_sessions -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <td><%= h ct_session.ct_class.term.term_name %></td>
+          <td><%= h ct_session.ct_class.class_name %></td>
+          <td><%= link_to "#{h ct_session.s_class_name}", :controller => '/ct/client/home', :action => 'class_information', :id => ct_session.ct_class_id %></td>
+          <td><%= h ct_session.s_abbreviation %></td>
+          <td align="center"><%= link_to image_tag("roster_view.png", :border=>0, :title=>"View Roster", :alt=>"View Roster"), :action => 'instructor_roster', :id => ct_session %> (<%= CtRoster.roster_count_for_class_session(ct_session.id) %>)</td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@ct_session_pages, :window_size => 5) %></div>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/client/links' %>
+  </div>
+</div>

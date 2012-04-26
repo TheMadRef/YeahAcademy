@@ -1,0 +1,54 @@
+<%= error_messages_for 'ct_setting' %>
+
+<!--[form:ct_setting]-->
+<table>
+<tr><td>
+<dt><label for="ct_setting_system_name">System name</label></dt>
+<dd>
+<%= text_field 'ct_setting', 'system_name'  %></dd>
+</td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_welcome_message">Welcome message</label></dt>
+<dd>
+<%= text_area 'ct_setting', 'welcome_message'  %></dd></td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_participant_overall_limit">Participant overall limit</label></dt>
+<dd>
+<%= text_field 'ct_setting', 'participant_overall_limit'  %></dd>
+</td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_participant_limit_per_class">Participant limit per class:</label></dt>
+<dd><%= text_field 'ct_setting', 'participant_limit_per_class'  %></dd>
+</td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_require_approval">Automatically Approve Entries on Payment</label></dt>
+<dd><%= select('ct_setting', 'require_approval', [["Yes",false],["No",true]]) %></dd></td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_verify_ct_eligibility">Verify ct eligibility</label></dt>
+<dd><%= select('ct_setting', 'verify_ct_eligibility', [["No",false],["Yes",true]]) %></dd></td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_master_ct_terms_and_conditions">Master ct terms and conditions</label></dt>
+<dd><%= select('ct_setting', 'master_ct_terms_and_conditions', [["No",false],["Yes",true]]) %></dd></td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_master_ct_terms_and_conditions_text">Master ct terms and conditions text</label></dt>
+<dd>
+<%= text_area 'ct_setting', 'master_ct_terms_and_conditions_text'  %></dd></td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_class_terms_and_conditions">Class terms and conditions</label></dt>
+<dd><%= select('ct_setting', 'class_terms_and_conditions', [["No",false],["Yes",true]]) %></dd></td></tr>
+
+<tr><td>
+<dt><label for="ct_setting_class_terms_and_conditions_text">Class terms and conditions text</label></dt>
+<dd>
+<%= text_area 'ct_setting', 'class_terms_and_conditions_text'  %></dd></td></tr>
+</table>
+<!--[eoform:ct_setting]-->
+

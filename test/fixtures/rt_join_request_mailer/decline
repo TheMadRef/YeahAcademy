@@ -1,0 +1,3 @@
+RtJoinRequestMailer#decline
+
+Find me in app/views/rt_join_request_mailer/decline.rhtml

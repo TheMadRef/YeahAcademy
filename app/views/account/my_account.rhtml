@@ -1,0 +1,92 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Edit Account&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Account History', :controller => '/shopping_cart', :action => 'account_history' %>&nbsp;&nbsp;|&nbsp;&nbsp;<%= link_to 'Pending Payments', :controller => '/shopping_cart', :action => 'pending_payments' %></h3>
+    <%= error_messages_for :user, :participant %>
+    <% form_for :user do |f| -%>
+    <dl>
+      <h4>Login Information</h4>
+      <table>
+	      <tr><td>
+	      <dt>Login:</dt>
+	      <dd><%= f.text_field :login, :class => "text" %></dd>
+	      </td></tr>
+	      
+	      <tr><td>
+	      <dt>Password:</dt>
+	      <dd><%= f.password_field :password, :class => "text" %><p>(Leave blank to keep current password.)</p></dd>
+	      </td></tr>
+	      
+	      <tr><td>
+	      <dt>Confirm Password</dt>
+	      <dd><%= f.password_field :password_confirmation, :class => "text" %></dd>
+	      </td></tr>
+      </table>
+      
+      <% if !current_user.admin? -%>
+        <br class="clear" />
+        <h4>Personal Information</h4>
+        <table>
+		      <% fields_for :participant do |participant| -%>
+		      	<% for field in @participant_fields -%>
+			        <tr><td>
+			        	<% if field.participant_custom_field_id.nil? -%>
+			        		<dt><%= field.participant_column_human_name %></dt>
+			        		<dd>
+			        			<% if field.participant_column_type == "text" -%>
+			        				<%= participant.text_field field.participant_column_name, :class => "text" %>
+			        			<% elsif field.participant_column_type == "category" -%>
+			        				<%= select("participant", "category_id", @categories_array, :class => 'list') %>
+			        			<% elsif field.participant_column_type == "date_select" -%>
+											<dd><%= date_select 'participant', field.participant_column_name, :start_year => Time.now.year - 100, :end_year => Time.now.year %></dd>
+										<% elsif field.participant_column_type == "gender" -%>
+											<dd><%= select('participant', field.participant_column_name, [["Male",false],["Female",true]]) %></dd>
+										<% end -%>
+			        		</dd>
+		        		<% else -%>
+		        			<dt><%= field.participant_custom_field.field_name %></dt>
+									<dd>
+										<% if field.participant_custom_field.required && display_custom_field_error?(field.participant_custom_field_id) -%>
+											<div class="fieldWithErrors">
+										<% end -%>
+										<%= text_field_tag "custom_field_#{field.participant_custom_field_id}", @participant.custom_field_values[field.participant_custom_field_id], :class => "text" %>
+										<% if field.participant_custom_field.required && display_custom_field_error?(field.participant_custom_field_id) -%>
+											</div>	
+										<% end -%>
+									</dd>
+		        		<% end -%>
+		      		</td></tr>
+		      	<% end -%>
+						<%= render :partial => 'terms_and_conditions' %>
+					<% end -%>
+      	</table>
+      <% end -%>
+
+      <dd><%= submit_tag 'Edit Account', :class => 'button' %></dd>
+    </dl>
+    <% end -%>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <% if $g_admin -%>  
+  	 <% if $g_im_online -%>
+  	   <%= render :partial => '/im/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_ct_online -%>
+    	 <%= render :partial => '/ct/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_rt_online -%>
+    	 <%= render :partial => '/rt/admin/links' %>
+  	 <% end -%>
+     <%= render :partial => '/admin/links' %>
+    <% else -%>
+  	 <% if $g_im_online -%>
+  	   <%= render :partial => '/im/client/links' %>
+  	 <% end -%>
+  	 <% if $g_ct_online -%>
+    	 <%= render :partial => '/ct/client/links' %>
+  	 <% end -%>
+    <% end -%>
+  </div>
+</div>

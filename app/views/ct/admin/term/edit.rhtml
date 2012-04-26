@@ -1,0 +1,18 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Editing Term</h3>
+    <% form_tag :action => 'update', :id => @term do %>
+      <dl>
+      <%= render :partial => 'form' %>
+        <dd><%= submit_tag 'Edit', :class => 'button' %> | <%= link_to 'Show', :action => 'show', :id => @term %> | <%= link_to 'Back', :action => 'list' %></dd>
+      </dl>
+    <% end %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

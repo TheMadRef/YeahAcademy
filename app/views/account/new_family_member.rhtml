@@ -1,0 +1,29 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Add New Family Member</h3>
+    <% form_tag :action => 'create_family_member', :id => @participant do %>
+    <dl>
+      <%= error_messages_for 'participant' %>
+			<table>
+        <% if $g_require_member_number %>      
+          <tr><td>
+          	<dt>Participant Number:</dt>
+          	<dd><%= text_field 'participant', 'participant_number', :class => 'text'  %></dd>
+        	</td></tr>
+        <% end -%>
+	      <%= render :partial => 'participant/form' %>
+				<%= render :partial => 'terms_and_conditions' %>
+  	    <tr><td>
+  	    <dd><%= submit_tag 'Create', :class => 'button' %>
+				</td></tr>
+			</table>
+    <dl>
+    <% end %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+		<%= render :partial => 'home/side_links' %>
+  </div>
+</div>

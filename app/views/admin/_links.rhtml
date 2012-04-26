@@ -1,0 +1,15 @@
+    <h4><span>General</span> Admin Links</h4>
+    <ul class="links">
+      <li class="first"><%= link_to "Users", { :controller => "/account", :action => "list" } %></li>
+      <li><%= link_to "Participants", { :controller => "/participant", :action => "list" } %></li>
+      <li><%= link_to "Categories", { :controller => "/category", :action => "list" } %></li>
+      <li><%= link_to "Facilities", { :controller => "/facility", :action => "list" } %></li>
+      <li><%= link_to "Playing Areas", { :controller => "/playing_area", :action => "list" } %></li>
+      <li><%= link_to "Accounting Reports", { :controller => "/accounting", :action => "accounting_history" } %></li>
+      <li><%= link_to "Master Settings", { :controller => "/master_setting", :action => "show" } %></li>
+      <li><%= link_to "Payment Settings", { :controller => "/payment_setting", :action => "show" } %></li>
+      <li><%= link_to "Email Templates", { :controller => "/email_custom_text", :action => "show" } %></li>
+      <li><%= link_to "Custom Fields", { :controller => "/participant_custom_field", :action => "list" } %></li>
+      <li><%= emails_in_que %> Emails in Que</li>
+    </ul>
+    

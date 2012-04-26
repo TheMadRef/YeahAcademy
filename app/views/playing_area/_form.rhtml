@@ -1,0 +1,16 @@
+<%= error_messages_for 'playing_area' %>
+
+<!--[form:playing_area]-->
+<dd><%= hidden_field 'playing_area', 'facility_id' %></dd>
+
+<dt><label for="playing_area_playing_area_name">Name:</label></dt>
+<dd><%= text_field 'playing_area', 'playing_area_name', :class => 'text' %></dd>
+
+<dt><label for="playing_area_abbreviation">Abbreviation</label></dt>
+<dd><%= text_field 'playing_area', 'area_abbreviation', :class => 'text'  %></dd>
+
+<dt><label for="playing_area_parent_id">Sub Area of:</label></dt>
+<dd><%= select("playing_area", "parent_id", PlayingArea.find(:all, :conditions => ["parent_id = 0 AND facility_id = ?", @playing_area.facility], :order => "playing_area_name").collect {|c| [ c.playing_area_name, c.id ] }, { :include_blank => true }, :class => 'list') %></dd>
+
+<!--[eoform:playing_area]-->
+

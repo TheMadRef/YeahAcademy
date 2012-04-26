@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <title>FaciliTrax - <%= controller.action_name %></title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <%= stylesheet_link_tag 'facilitrax', 'green' %>
+</head>
+
+<body>
+  <div id="header">
+    <div id="header_inner" class="fluid">
+      <%= display_user_status %>
+      <div id="logo">
+        <h1><span>FaciliTrax</span> 1.0</h1>
+        <h2>by Recreational Solutions</h2>
+      </div>
+      <div id="menu">
+        <ul>
+          <% if $g_im_online -%>
+            <li><a href="/im/client/home">Sports</a></li>
+          <% end -%>
+          <% if $g_rt_online -%>              
+            <li><a href="/rt/client/home">Employees</a></li>
+          <% end -%>
+          <% if $g_ct_online -%>    
+            <li><a href="/ct/client/home">Classes</a></li>
+          <% end -%>
+          <% if $g_admin -%>
+            <li><a href="/admin" class="active">Admin</a></li>
+          <% end -%>
+          <li><a target="_blank" href="http://support.cfmenterprises.com/Customer/KBCategory.aspx?categoryid=27">Help</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="main">
+    <div id="main_inner" class="fluid">
+      <%= yield :layout %>
+      <br class="clear" />
+    </div>
+  </div>
+  <div id="footer" class="fluid">Copyright &copy; 2008 <a href="http://www.recsolutions.com">Recreational Solutions</a>, a division of <a href="http://www.cfmenterprises.com">CFM Enterprises</a>. All rights reserved.</div>
+</body>
+</html>

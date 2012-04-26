@@ -1,0 +1,7 @@
+<% if !@header.blank? -%>
+	<center><h3><%= @header %></h3></center>
+<% end -%>
+<p>Dear <%= @participant %>:</p>
+<p>A payment has been applied to your account. The payment for <%= number_to_currency(@total) %> has been applied to Order <%= @order %></p>  
+<p>Please go to your <%= link_to "Account History", "http://#{$g_return_url}/shopping_cart/account_history" %> to view order details and print a receipt.</p>
+<p><%= @footer %></p>

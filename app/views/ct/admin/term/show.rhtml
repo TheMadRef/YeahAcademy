@@ -1,0 +1,18 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <% for column in Term.content_columns %>
+    <p>
+      <b><%= column.human_name %>:</b> <%=h @term.send(column.name) %>
+    </p>
+    <% end %>
+    
+    <%= link_to 'Edit', :action => 'edit', :id => @term %> | <%= link_to 'Back', :action => 'list' %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+free_agent_for_league:
+  id:                1 
+  participant_id:    1
+  im_league_id:      2
+
+free_agent_for_division:
+  id:                2
+  participant_id:    1
+  im_division_id:    2

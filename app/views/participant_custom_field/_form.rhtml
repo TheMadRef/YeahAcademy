@@ -1,0 +1,13 @@
+<%= error_messages_for 'participant_custom_field' %>
+
+<!--[form:participant_custom_field]-->
+<dt><label for="participant_custom_field_field_name">Field name</label></dt>
+<dd><%= text_field 'participant_custom_field', 'field_name'  %></dd>
+
+<dt><label for="participant_custom_field_required">Required</label></dt>
+<dd><%= select('participant_custom_field', 'required', [["No",false],["Yes",true]]) %></dd>
+
+<dt><label for="participant_custom_field_inheritable">Inheritable</label></dt>
+<dd><%= select('participant_custom_field', 'inheritable', [["No",false],["Yes",true]]) %></dd>
+<!--[eoform:participant_custom_field]-->
+

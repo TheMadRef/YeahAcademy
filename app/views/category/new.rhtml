@@ -1,0 +1,26 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>New Category</h3>
+    <% form_tag :action => 'create' do %>
+      <dl>
+        <%= render :partial => 'form' %>
+        <dd><%= submit_tag "Create", :class => 'button' %> | <%= link_to 'Back', :action => 'list' %></dd>
+      </dl>
+    <% end %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+     <% if $g_im_online -%>
+     <%= render :partial => '/im/admin/links' %>
+     <% end -%>
+     <% if $g_ct_online -%>
+     <%= render :partial => '/ct/admin/links' %>
+     <% end -%>
+     <% if $g_rt_online -%>
+     <%= render :partial => '/rt/admin/links' %>
+     <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>

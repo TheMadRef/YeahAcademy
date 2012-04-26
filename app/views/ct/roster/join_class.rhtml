@@ -1,0 +1,60 @@
+<div id="primaryContent_3columns">
+  <div id="columnA_3columns">
+    <h4>Other Open Registrations</h4>
+    <div id="list-table">
+      <% if @ct_all_sessions[0].nil? -%>
+        <h4>No Classes Open for Registration</h4>
+      <% else -%>
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <th align="left">Class Session</th>
+            <th align="center">Current Price</th>
+            <th>Sign Up!</th>
+          </tr>
+          <% for session in @ct_all_sessions -%>
+            <% if is_category_allowed_in_session?(session.id) -%>
+	            <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+		            <td align="left"><%= link_to "#{h session.ct_class.class_name} : #{h session.s_class_name}", :controller => '/ct/client/home', :action => 'class_information', :id => session.ct_class_id %></td>
+	              <% if session.s_late_date < Time.now -%>
+	                <td align="center"><%= number_to_currency(session.s_price + session.s_late_fee) %></td>
+	              <% elsif session.s_early_bird_date > Time.now -%>
+	                <td align="center"><%= number_to_currency(session.s_price - session.s_early_bird_discount) %></td>
+								<% else -%>
+	                <td align="center"><%= number_to_currency(session.s_price) %></td>
+	              <% end -%>
+	              <% if CtRoster.roster_count_for_class_session(session) >= session.s_roster_maximum %>
+	                <td align="center"><span class="division_closed">FULL</span></td>
+	              <% else -%>
+	                <td align="center" valign="middle">
+	                	<span class="division_open">
+		                	<%= link_to image_tag("join_class.png", :border=>0, :title =>"Click Here to Sign Up", :alt=>"Click Here to Sign Up"), :controller => '/ct/roster', :action => 'join_class', :id => session %>&nbsp;
+		                	<% class_spots = session.s_roster_maximum - CtRoster.roster_count_for_class_session(session) 
+		                	if class_spots <= 5 -%> 
+		                		<span class="hurry"><%= class_spots %> left!</span>
+		                	<% end -%>
+	              		</span>
+	              	</td>
+	              <% end -%>
+  	          </tr>
+            <% end -%>
+          <% end -%>
+        </table>
+      <% end -%>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_3columns">
+  <div id="columnB_3columns">
+    <%= display_standard_flashes -%>
+    <div id="start_message">
+      <% if !@skip_form -%>
+                <%= render :partial => 'join_class_form' %>
+      <% else -%>
+        <p>This class is not ready for registration.  Please contact your administrator immediately to resolve this issue.  No terms and conditions exist for the class.</p>
+      <% end -%>
+    </div>
+  </div>
+  <div id="columnC_3columns">
+	   <%= render :partial => '/ct/client/links' %>
+  </div>
+</div>

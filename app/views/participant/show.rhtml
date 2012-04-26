@@ -1,0 +1,65 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <p>
+      <% for field in @participant_fields -%>
+      	<% if field.participant_custom_field.nil? -%>
+  		    <b><%= field.participant_column_human_name %>:</b>
+    			<% if field.participant_column_type == "text" -%>
+    				<%= eval("@participant.#{field.participant_column_name}") %>
+    			<% elsif field.participant_column_type == "category" -%>
+    				<%= Category.print_category_name(@participant.category_id) if !@participant.category.nil? %>
+    			<% elsif field.participant_column_type == "date_select" -%>
+    				<%= eval("@participant.#{field.participant_column_name}").to_s(:mdy) %>
+  				<% elsif field.participant_column_type == "gender" -%>
+  					<%= @participant.gender ? "Female" : "Male" %>
+  				<% end -%>
+    		<% else -%>
+    			<b><%= field.participant_custom_field.field_name %>:</b>
+    			<%= @participant.custom_field_values[field.participant_custom_field_id] %>
+    		<% end -%>
+			  <br>
+      <% end -%>
+      <%= "<b>User Name:</b> #{@user.login}" if !@user.nil? %><br>
+      <b>Membership Status: </b> <%= @participant.paid_membership_fee ? "Paid #{link_to image_tag("delete.png", :border=>0, :title=>"Reset Membership Status", :alt=>"Reset Membership Status"), { :action => 'reset_membership_status', :id => @participant }, :confirm => "Are you sure?", :method => :post }" : "Not Paid" %><br>
+    </p>
+    <% if !@ct_rosters[0].nil? -%>
+		<div id="list-table">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<th colspan=3>ClassTrack Sessions</th>
+				</tr>
+				<tr>
+					<th>Class</th>
+					<th>Session</th>
+					<th>Abbreviation</th>
+				</tr>
+				<% for roster in @ct_rosters %>
+					<tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+						<td><%= roster.ct_session.ct_class.class_name %></td>
+						<td><%= roster.ct_session.s_class_name %></td>
+						<td><%= roster.ct_session.s_abbreviation %></td>
+					</tr>    
+				<% end -%>
+			</table>
+		</div>
+    <% end -%>
+    </p>
+
+    <%= link_to 'Edit', :action => 'edit', :id => @participant %> | <%= link_to 'Account Details', :controller => '/shopping_cart', :action => 'participant_history', :id => params[:id] %> | <%= link_to 'Back', :action => 'list' %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+	 <% if $g_im_online -%>
+	   <%= render :partial => '/im/admin/links' %>
+	 <% end -%>
+	 <% if $g_ct_online -%>
+  	 <%= render :partial => '/ct/admin/links' %>
+	 <% end -%>
+	 <% if $g_rt_online -%>
+  	 <%= render :partial => '/rt/admin/links' %>
+	 <% end -%>
+   <%= render :partial => '/admin/links' %>
+  </div>
+</div>

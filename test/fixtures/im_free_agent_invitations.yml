@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+invitation_from_division_team:
+  id:                   1
+  im_free_agent_id:     2
+  im_team_id:           6
+
+invitation_from_league_team:
+  id:                   2
+  im_free_agent_id:     1
+  im_team_id:           3
+
+declined_invitation:
+  id:                   3
+  im_free_agent_id:     2
+  im_team_id:           7
+  declined:             1
+  
+accepted_invitation:
+  id:                   4
+  im_free_agent_id:     1
+  im_team_id:           4
+  accepted:             1

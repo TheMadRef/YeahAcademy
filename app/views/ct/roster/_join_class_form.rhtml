@@ -1,0 +1,38 @@
+<% if !@class_family_members[0].nil? -%>
+  <font size="3"><b><%= @ct_session.ct_class.class_name %> : <%= @ct_session.s_class_name %></b><br>Registration Details:</font></p>
+  <% form_tag :action => 'process_join_class', :id => @ct_session.ct_class_id do -%>
+    <%= error_messages_for 'ct_roster', 'participant_event' -%>
+    <dl>
+      <table>
+        <tr><td colspan="2">
+					<%= hidden_field 'ct_roster', 'ct_session_id' %>
+						<% if !@ct_session.s_comment.blank? %>Description: <%= @ct_session.s_comment %><br><% end %>Total Cost = 
+		            <% if @ct_session.s_early_bird_date > Time.now -%>
+		              <%= number_to_currency(@ct_session.s_price - @ct_session.s_early_bird_discount) %>
+	            	<% elsif @ct_session.s_late_date < Time.now -%>
+	              	<%= number_to_currency(@ct_session.s_price + @ct_session.s_late_fee) %>
+		            <% else -%>
+		            	<%= number_to_currency(@ct_session.s_price) %>
+		            <% end -%>
+	            </td>
+        </tr>
+				<tr><td>
+					<dt>Class Participant</dt>        
+	        <dd><%= select('ct_roster', 'participant_id', @class_family_members.collect {|c| [ "#{h c.first_name} #{h c.last_name}", c.id ] }, :class => 'list' )%></dt>
+        </td></tr>
+	      <% if $g_class_terms_and_conditions %>
+	        <tr><td>
+	        <b>Terms and Conditions:</b> <%= @terms_and_conditions %><br>
+	        Do you Accept these Terms and Conditions <%= select('ct_roster', 'terms_and_conditions', [["No",false],["Yes",true]]) %>
+	        </td></tr>
+	      <% end -%>
+	      <tr><td>
+		      <dd><%= submit_tag "Register", :class => 'button' %>
+	      </td></tr>
+      </table>
+    </dl>
+  <% end -%>
+<% else -%>
+	<b>There are no sessions currently available for you or any of your family members.  Please go to <%= link_to 'My Profile', :controller => '/account', :action => 'my_profile' %> or <%= link_to 'My Family', :controller => '/account', :action => 'my_family' %> to verify the category of you or your family members.  Click on <%= link_to 'Add New Family Member', :controller => '/account', :action => 'new_family_member' %> if you have not yet added your family to your profile.  Edit each family member to ensure that their category is correct.   if you still believe this is an error, please contact your system administrator.</b>
+<% end -%>
+

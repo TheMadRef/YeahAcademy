@@ -1,0 +1,316 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <% if @start_date.nil? %>
+    	<h3>No items have been purchased on your site</h3>
+			<%= link_to 'Show Completed Orders', :action => 'accounting_history' %> | <%= link_to 'Show All Pending Items', :action => 'pending_items'  %> | <%= link_to 'Show Only Past Due Items', :action => 'pending_items'  %>		
+		<% else -%>    	
+	    <h3>
+				<% if !params[:ct_session_id].nil? && !params[:ct_session_id].blank? -%>
+					Listing Transactions for <%= h @ct_session.ct_class.class_name %>:<%= h @ct_session.s_class_name %>
+				<% elsif !params[:im_sport_id].nil? && !params[:im_sport_id].blank? -%>
+					Listing Transactions for <%= h @im_sport.term.term_name %>:<%= @im_sport.sport_name %>
+				<% else -%>
+					Listing Per Item Breakdown of all transactions
+				<% end -%>
+				placed between <%= @start_date.to_date.to_formatted_s(:mdy) %> and <%= @end_date.to_date.to_formatted_s(:mdy) %>
+	  	</h3>
+			<%= link_to 'Show Completed Orders', :action => 'accounting_history' %> | <%= link_to 'Show All Pending Items', :action => 'pending_items'  %> | <%= link_to 'Show Only Past Due Items', :action => 'pending_items'  %>		
+	    <div id="list-table">
+				<% if !params[:ct_session_id].nil? && !params[:ct_session_id].blank? -%>
+					<% if !@ct_rosters[0].nil? -%>
+			      <table cellspacing="0" cellpadding="0">
+			        <tr>
+			        	<th aligh="center" width="10">#</th>
+			          <th align="left">Participant</th>
+			          <th align="center" width="70">Price</th>
+			          <th align="center" width="70">Paid</th>
+			        </tr>
+							<% @item_number = 1
+							@total_paid = 0
+							for roster in @ct_rosters 
+		    				if !roster.line_item.nil? 
+		    					if roster.line_item.created_at.to_time >= @start_date.to_time && roster.line_item.created_at.to_time <= @end_date.to_time -%>
+								    <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+								      <td align="center"><%= @item_number %></td>
+								      <td valign="top"><%= roster.participant.last_name %>,&nbsp;<%= roster.participant.first_name %></td>
+								      <td valign="top" align="center"><%= number_to_currency(roster.line_item.price) %></td>
+								      <td valign="top" align="center"><%= roster.paid? %>
+								    </tr>
+										<% @item_number += 1 %>
+										<% @total_paid += roster.line_item.price %>
+		    					<% end
+		    				end 
+		    			end %>
+							<tr>
+								<th colspan="3" align="right">Total Billed: </th>
+								<th align="left"><%= number_to_currency(@total_paid) %></th>
+							</tr>				 
+		    		</table>
+		    	<% else -%>
+		    		<p><b>No transactions for selected class</b></p>
+					<% end -%>
+	    	<% elsif !params[:im_sport_id].nil? && !params[:im_sport_id].blank? -%>	
+					<% if !@im_teams[0].nil? -%>
+			      <table cellspacing="0" cellpadding="0">
+			        <tr>
+			        	<th colspan="4">Team Transactions</th>
+			        </tr>
+			        <tr>
+			        	<th align="center" width="10">#</th>
+			          <th align="left">Team</th>
+			          <th align="left">Captain</th>
+			          <th align="center" width="70">Price</th>
+			          <th align="center" width="70">Paid</th>
+			        </tr>
+							<% @item_number = 1
+							@total_paid = 0
+							for team in @im_teams
+		    				if !team.line_item.nil? 
+		    					if team.line_item.created_at >= @start_date.to_time && team.line_item.created_at <= @end_date.to_time -%>
+									  <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+									    <td align="center"><%= @item_number %></td>
+									    <td><%= team.team_name %></td>
+									    <td valign="top"><%= h captain_name_for_team(team.id) %></td>
+									    <td align="center"><%= number_to_currency(team.line_item.price) %></td>
+									    <td align="center"><%= team.paid? %></td>
+									  </tr>
+										<% @item_number += 1 %>
+										<% @total_paid += team.line_item.price %>
+		    					<% end
+		    				end 
+		    			end %>
+		    		</table>
+		    		<hr>
+			      <table cellspacing="0" cellpadding="0">
+			        <tr>
+			        	<th colspan="4">Roster Transactions</th>
+			        </tr>
+			        <tr>
+			        	<th aligm="center" width="10">#</th>
+			          <th align="left">Team</th>
+			          <th align="left">Participant</th>
+			          <th width="70">Price</th>
+			          <th width="70">Paid</th>
+			        </tr>
+							<% @item_number = 1
+							for team in @im_teams
+								im_rosters = team.im_rosters.find(:all)
+								for roster in im_rosters
+			    				if !roster.line_item.nil?  
+		    						if roster.line_item.created_at >= @start_date.to_time && roster.line_item.created_at <= @end_date.to_time -%>
+									    <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+									      <td><%= @item_number %></td>
+									      <td><%= roster.im_team.team_name %></td>
+									      <td valign="top"><%= roster.participant.last_name %>,&nbsp;<%= roster.participant.first_name %></td>
+									      <td valign="top" align="center"><%= number_to_currency(roster.line_item.price) %></td>
+									      <td valign="top" align="center"><%= roster.paid? %>
+									    </tr>
+											<% @item_number += 1 %>
+											<% @total_paid += roster.line_item.price %>
+			    					<% end
+			    				end 
+			    			end
+		    			end %>
+							<tr>
+								<th colspan="4" align="right">Total Billed: </th>
+								<th align="left"><%= number_to_currency(@total_paid) %></th>
+							</tr>				 
+		    		</table>
+		    	<% else -%>
+		    		<p><b>No transactions for selected sport</b></p>
+					<% end -%>
+	    	<% else -%>	
+					<% if !@ct_sessions[0].nil?
+						for session in @ct_sessions 
+							@total_paid = 0
+							ct_rosters = session.ct_rosters.find(:all) 
+							if !ct_rosters[0].nil? %>
+								<h4>Transactions for <%= h session.ct_class.class_name %>:<%= h session.s_class_name %></h4>
+					      <table cellspacing="0" cellpadding="0">
+					        <tr>
+					        	<th aligh="center" width="10">#</th>
+					          <th align="left">Participant</th>
+					          <th align="center" width="70">Price</th>
+					          <th align="center" width="70">Paid</th>
+					        </tr>
+									<% @item_number = 1
+									@total_paid = 0
+									for roster in ct_rosters
+				    				if !roster.line_item.nil? 
+				    					if roster.line_item.created_at.to_time >= @start_date.to_time && roster.line_item.created_at.to_time <= @end_date.to_time -%>
+										    <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+										      <td align="center"><%= @item_number %></td>
+										      <td valign="top"><%= roster.participant.last_name %>,&nbsp;<%= roster.participant.first_name %></td>
+										      <td valign="top" align="center"><%= number_to_currency(roster.line_item.price) %></td>
+										      <td valign="top" align="center"><%= roster.paid? %>
+										    </tr>
+												<% @item_number += 1 %>
+												<% @total_paid += roster.line_item.price %>
+					    				<% end
+					    			end 
+				    			end %>
+									<tr>
+										<th colspan="3" align="right">Total Billed: </th>
+										<th align="left"><%= number_to_currency(@total_paid) %></th>
+									</tr>				 
+				    		</table>
+							<% end
+						end 
+					end -%>
+					<% if !@im_sports[0].nil?
+						for sport in @im_sports 
+							@total_paid = 0
+							im_teams = ImTeam.teams_for_sport(sport.id) 
+							if !im_teams[0].nil? %>
+								<h4>Transactions for <%= h sport.term.term_name %>:<%= h sport.sport_name %></h4>
+					      <table cellspacing="0" cellpadding="0">
+					        <tr>
+					        	<th colspan="4">Team Transactions</th>
+					        </tr>
+					        <tr>
+					        	<th aligh="left" width="10">#</th>
+					          <th align="left">Team</th>
+					          <th align="left">Captain</th>
+					          <th align="center" width="70">Price</th>
+					          <th align="center" width="70">Paid</th>
+					        </tr>
+									<% @item_number = 1
+									for team in im_teams
+				    				if !team.line_item.nil?  
+				    					if team.line_item.created_at.to_time >= @start_date.to_time && team.line_item.created_at.to_time <= @end_date.to_time -%>
+											  <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+											    <td align="center"><%= @item_number %></td>
+											    <td><%= team.team_name %></td>
+											    <td valign="top"><%= h captain_name_for_team(team.id) %></td>
+											    <td align="center"><%= number_to_currency(team.line_item.price) %></td>
+											    <td align="center"><%= team.paid? %></td>
+											  </tr>
+												<% @item_number += 1 %>
+												<% @total_paid += team.line_item.price %>
+				    					<% end
+				    				end 
+				    			end %>
+				    		</table>
+				    		<hr>
+					      <table cellspacing="0" cellpadding="0">
+					        <tr>
+					        	<th colspan="4">Roster Transactions</th>
+					        </tr>
+					        <tr>
+					        	<th aligh="left" width="10">#</th>
+					          <th align="left">Team</th>
+					          <th align="left">Participant</th>
+					          <th align="center" width="70">Price</th>
+					          <th align="center" width="70">Paid</th>
+					        </tr>
+									<% @item_number = 1
+									for team in im_teams
+										im_rosters = team.im_rosters.find(:all)
+										for roster in im_rosters
+					    				if !roster.line_item.nil?  
+					    					if roster.line_item.created_at.to_time >= @start_date.to_time && roster.line_item.created_at.to_time <= @end_date.to_time -%>
+											    <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+											      <td align="center"><%= @item_number %></td>
+											      <td valign="top"><%= h roster.im_team.team_name %></td>
+											      <td valign="top"><%= roster.participant.last_name %>,&nbsp;<%= roster.participant.first_name %></td>
+											      <td valign="top" align="center"><%= number_to_currency(roster.line_item.price) %></td>
+											      <td valign="top" align="center"><%= roster.paid? %>
+											    </tr>
+													<% @item_number += 1 %>
+													<% @total_paid += roster.line_item.price %>
+						    				<% end 
+											end
+				  	  			end 
+				  	  		end -%>
+									<tr>
+										<th colspan="4" align="right">Total Billed: </th>
+										<th align="left"><%= number_to_currency(@total_paid) %></th>
+									</tr>				 
+				    		</table>
+							<% end
+						end 
+					end
+					# Deleted Items Transaction
+					line_items = LineItem.find(:all, :conditions => ["order_id IS NOT NULL AND im_team_id IS NULL AND im_roster_id IS NULL AND ct_roster_id IS NULL AND discount_log_id IS NULL AND fee_log_id IS NULL AND payment_item_id < ? ", 7], :order => "created_at ASC") %>
+					<% if !line_items.nil? %>
+						<h4>Transactions for deleted items </h4>
+					    <table cellspacing="0" cellpadding="0">
+					        <tr>
+					          <th aligh="center" width="10">#</th>
+					          <th align="left">Participant</th>
+					          <th align="center" width="70">Price</th>
+					        </tr>
+							<% @item_number = 1
+							@total_paid = 0
+							for line_item in line_items %>
+			    				<tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+									<td align="center"><%= @item_number %></td>
+									<td valign="top"><%= line_item.participant.last_name %>,&nbsp;<%= line_item.participant.first_name %></td>
+									<td valign="top" align="center"><%= number_to_currency(line_item.price) %></td>
+								</tr>
+								<% @item_number += 1 -%>
+								<% @total_paid += line_item.price -%>
+				    		<% end -%>
+							<tr>
+								<th colspan="2" align="right">Total Billed: </th>
+								<th align="left"><%= number_to_currency(@total_paid) %></th>
+							</tr>				 
+				    	</table>	 
+					<% end 
+				end -%>
+				<%= link_to 'Show Completed Orders', :action => 'accounting_history' %> | <%= link_to 'Show All Pending Items', :action => 'pending_items'  %> | <%= link_to 'Show Only Past Due Items', :action => 'pending_items'  %>		
+	    </div>
+	    <table cellspacing="0" cellpadding="0">
+	    	<% form_tag "/accounting/accounting_per_item" do -%>
+	      	<tr>
+	        	<th colspan="2">Search Options</th>
+	    	  </tr>
+	      	  <% if !@ct_sessions[0].nil? -%>
+		          <tr>
+		            <td>Class Session:</td>
+		            <td>
+		            	<select name="ct_session_id" id="ct_session_id"><option value="">All Class Sesssions</option><%= options_from_collection_for_select(@ct_sessions.collect {|session| [session.id, session.ct_class.class_name + " " + session.s_class_name]}, 'first', 'last', @ct_session_id.to_i) %></select>
+		            </td>
+		          </tr>
+						<% end -%>
+	        <tr>
+	          <td>Sport:</td>
+	          <td>
+	          	<select name="im_sport_id" id="im_sport_id"><option value="">All Sports</option>
+	            <%= options_from_collection_for_select(@im_sports.collect {|sport| [sport.id, sport.term.term_name + " " + sport.sport_name]}, 'first', 'last', @im_sport_id.to_i) %></select>
+	          </td>
+	        </tr>
+	        <tr>
+	          <td>Date Range:</td>
+	          <td>
+	            <%= select_date @start_date, :prefix => 'start_date' %> - <%= select_date @end_date, :prefix => 'end_date' %>         
+	          </td>
+	        </tr>
+	        <tr>
+	          <td align="right">&nbsp;</td>
+	          <td><%= submit_tag "Search", :class => 'button' %></td>
+	        </tr>
+				<% end -%>
+	      <tr>
+	        <td align="right">&nbsp;</td>
+	        <td><%= button_to "Clear", "accounting_per_item", :class => 'button' %></td>
+	      </tr>      
+	   	</table>   
+		<% end -%>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+	 <% if $g_im_online -%>
+	   <%= render :partial => '/im/admin/links' %>
+	 <% end -%>
+	 <% if $g_ct_online -%>
+  	 <%= render :partial => '/ct/admin/links' %>
+	 <% end -%>
+	 <% if $g_rt_online -%>
+  	 <%= render :partial => '/rt/admin/links' %>
+	 <% end -%>
+   <%= render :partial => '/admin/links' %>
+  </div>
+</div>

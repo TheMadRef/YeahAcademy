@@ -1,0 +1,36 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <p>
+      <% if @payment_setting.cfm_authorization -%>
+        You are authorize to accept payments using the following gateways.  Cick on Edit to set up your authorized gateways.<br>
+          <% if @payment_setting.cfm_authorization_nelix -%>
+        		<b>NeLiX TransaX Gateway:</b> <% if @payment_setting.nelix %>Ready<% else %>Click Edit to Setup<% end %><br/>
+        	<% end -%>
+          <% if @payment_setting.cfm_authorization_authorize_net -%>
+        		<b>Authorize.Net:</b> <% if @payment_setting.authorize_net %>Ready<% else %>Click Edit to Setup<% end %><br/>
+        	<% end -%>
+          <% if @payment_setting.cfm_authorization_paypal -%>
+        		<b>PayPal:</b> <% if @payment_setting.paypal %>Ready<% else %>Click Edit to Setup<% end %><br/>
+        	<% end -%>
+        <%= link_to 'Edit', :action => 'edit' %>
+      <% else %>
+        You are not authorized to accept online payments.  Please contact <%= link_to "Recreational Solutions", "mailto:sales@recsolutions.com" %> to have this feature turned on, or to receive information on how to accept online payments.
+      <% end %>
+    </p>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+  	 <% if $g_im_online -%>
+  	   <%= render :partial => '/im/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_ct_online -%>
+    	 <%= render :partial => '/ct/admin/links' %>
+  	 <% end -%>
+  	 <% if $g_rt_online -%>
+    	 <%= render :partial => '/rt/admin/links' %>
+  	 <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>

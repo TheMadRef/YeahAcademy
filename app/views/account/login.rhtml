@@ -1,0 +1,24 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <h3>Login</h3>
+    <%= display_standard_flashes -%>
+    <%= error_messages_for :user %>
+    <% form_tag do -%>
+    <dt>User Name:</dt>
+    <dd><%= text_field_tag 'login', @login, :class => 'text' %></dd>
+    
+    <dt>Password:</dt>
+    <dd><%= password_field_tag 'password', nil, :class => 'text' %></dd>
+    
+    <dt>Remember me:</dt>
+    <dd><%= check_box_tag 'remember_me' %></dd>
+    
+    <dd><%= submit_tag 'Log in', :class => 'button' %></dd>
+    <% end -%>
+    <dd><%= link_to 'Forgot My Password', :action => 'forgot_password' %></dd>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+  </div>
+</div>

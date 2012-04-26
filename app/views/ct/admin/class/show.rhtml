@@ -1,0 +1,42 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <p>
+	    <% for column in CtClass.content_columns %>
+  	    <b><%= column.human_name %>:</b> <%=h @ct_class.send(column.name) %><br>
+    	<% end %>
+			<% if $g_class_terms_and_conditions -%>
+      	<b>Class Terms and Condutions Text:</b> <%= h @ct_class.ct_class_term_and_condition.terms_and_conditions %>
+    	<% end -%>
+		</p>
+    <% if !@ct_sessions[0].nil? -%>
+	    <h4>Listing Sessions for this Class</h4>
+	    <div id="list-table">
+		    <table cellspacing="0" cellpadding="0">
+		      <tr>
+		        <th align="left">Session</th>
+		        <th align="left">Abbreviation</th>
+		        <th>Roster (#)</th>
+		        <th colspan="2">&nbsp;</th>
+		      </tr>
+			    <% for ct_session in @ct_sessions -%>
+			      <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+			        <td><%= link_to "#{h ct_session.s_class_name}", :action => 'show', :controller => '/ct/admin/class_session', :id => ct_session %></td>
+			        <td><%= h ct_session.s_abbreviation %></td>
+			        <td align="center"><%= link_to image_tag("roster_view.png", :border=>0, :title=>"View Roster", :alt=>"View Roster"), :controller => '/ct/roster', :action => 'list', :id => ct_session %> (<%= CtRoster.roster_count_for_class_session(ct_session.id) %>)</td>
+			        <td align="center"><%= link_to image_tag("edit.png", :border=>0, :title=>"Edit Session", :alt=>"Edit Session"), :action => 'edit', :controller => '/ct/admin/class_session', :id => ct_session %></td>
+			        <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title=>"Delete Session", :alt=>"Delete Session"), { :action => 'destroy', :controller => '/ct/admin/class_session', :id => ct_session }, :confirm => 'Are you sure?', :method => :post %></td>
+			      </tr>
+			    <% end -%>
+		    </table>
+			</div>
+		<% end -%>
+    <%= link_to 'Edit', :action => 'edit', :id => @ct_class %> | <%= link_to 'Back', :action => 'list' %>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

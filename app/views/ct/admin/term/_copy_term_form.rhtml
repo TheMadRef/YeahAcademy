@@ -1,0 +1,45 @@
+<%= error_messages_for 'term', 'im_sport', 'ct_class', 'ct_session' %>
+<!--[form:term]-->
+<table>
+  <tr><td>
+    <dt>New Term Name</dt>
+    <dd><%= text_field 'term', 'term_name', :class => 'text' %></dd>
+  </td></tr>
+  
+  <tr><td>
+    <dt>Default Registration Start:</dt>
+    <dd><%= datetime_select 'term', 'default_class_registration_start', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+  </td></tr>
+
+  <tr><td>
+    <dt>Default Registration End:</dt>
+    <dd><%= datetime_select 'term', 'default_class_registration_end', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+  </td></tr>
+
+  <tr><td>
+    <dt>Default Early Bird Discount Deadline:</dt>
+    <dd><%= datetime_select 'term', 'default_class_early_bird_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+  </td></tr>
+
+  <tr><td>
+    <dt>Default Late Date:</dt>
+    <dd><%= datetime_select 'term', 'default_class_late_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+  </td></tr>
+
+  <% if !$g_set_number_of_days_to_pay %>	
+  	<tr><td>
+    	<dt>Default Payment Due Date:</dt>
+    	<dd><%= datetime_select 'term', 'default_class_payment_due_date', :start_year => Time.now.year - 1, :end_year => Time.now.year + 3, :minute_step => 15 %></dd>
+  	</td></tr>
+  <% else -%>
+    <%= hidden_field 'term', 'default_class_payment_due_date' %>
+  <% end -%>
+  <%= hidden_field 'term', 'default_class_price' %>
+  <%= hidden_field 'term', 'default_class_late_price' %>
+  <%= hidden_field 'term', 'default_class_early_bird_discount' %>
+  <%= hidden_field 'term', 'default_class_roster_maximum' %>
+  <%= hidden_field 'term', 'default_class_minimum_age' %>
+  <%= hidden_field 'term', 'default_class_maximum_age' %>    
+</table>
+
+<!--[eoform:term]-->

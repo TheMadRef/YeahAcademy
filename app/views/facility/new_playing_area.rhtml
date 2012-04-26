@@ -1,0 +1,33 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3><span>Add a Playing Area</span> - Select a Facility</h3>
+    <div id="list-table">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left" colspan="5">Facility</th>
+        </tr>
+      <% for facility in @facilities -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <td><%= link_to facility.facility_name, :controller => '/playing_area', :action => 'new', :id => facility %></td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@facility_pages, :window_size => 5) %></div>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+     <% if $g_im_online -%>
+     <%= render :partial => '/im/admin/links' %>
+     <% end -%>
+     <% if $g_ct_online -%>
+     <%= render :partial => '/ct/admin/links' %>
+     <% end -%>
+     <% if $g_rt_online -%>
+     <%= render :partial => '/rt/admin/links' %>
+     <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>

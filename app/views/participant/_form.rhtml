@@ -1,0 +1,43 @@
+
+<!--[form:participant]-->
+<% for field in @participant_fields -%>
+  <tr><td>
+  	<% if field.participant_custom_field_id.nil? -%>
+  		<dt><%= field.participant_column_human_name %></dt>
+  		<dd>
+  			<% if field.participant_column_type == "text" -%>
+  				<%= text_field 'participant', field.participant_column_name, :class => "text" %>
+  			<% elsif field.participant_column_type == "category" -%>
+  				<%= select("participant", "category_id", @categories_array, :include_blank => true, :class => 'list') %>
+  			<% elsif field.participant_column_type == "date_select" -%>
+					<dd><%= date_select 'participant', field.participant_column_name, :start_year => Time.now.year - 100, :end_year => Time.now.year %></dd>
+				<% elsif field.participant_column_type == "gender" -%>
+					<dd><%= select('participant', field.participant_column_name, [["Male",false],["Female",true]]) %></dd>
+				<% end -%>
+  		</dd>
+		<% else -%>
+			<dt><%= field.participant_custom_field.field_name %></dt>
+			<dd>
+				<% if field.participant_custom_field.required && display_custom_field_error?(field.participant_custom_field_id) -%>
+					<div class="fieldWithErrors">
+				<% end -%>
+				<%= text_field_tag "custom_field_#{field.participant_custom_field_id}", @participant.custom_field_values[field.participant_custom_field_id], :class => "text" %>
+				<% if field.participant_custom_field.required && display_custom_field_error?(field.participant_custom_field_id) -%>
+					</div>	
+				<% end -%>
+			</dd>
+		<% end -%>
+	</td></tr>
+<% end -%>
+<tr><td>
+  <dt>Yeah Code:</dt>
+  <dd>
+    <% if current_user.admin? -%>
+      <%= text_field 'participant', 'yeah_code', :class => "text" %>
+    <% else -%>
+      <%= h @participant.yeah_code %><%= hidden_field 'participant', 'yeah_code' %>
+    <% end -%>
+  </dt>
+</tr></td>
+
+<!--[eoform:participant]-->

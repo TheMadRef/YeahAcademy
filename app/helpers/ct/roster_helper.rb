@@ -1,0 +1,2 @@
+module Ct::RosterHelper
+end

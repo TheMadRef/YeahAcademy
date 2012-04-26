@@ -1,0 +1,64 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Editing Participant Form Order</h3>
+    <% form_tag :action => 'update' do -%>
+			<%= error_messages_for 'current_record' %>
+	    <div id="list-table">
+	      <table cellspacing="0" cellpadding="0">
+	        <tr>
+	          <th align="left">Column ID</th>
+	          <th align="left">Display Name</th>
+	          <th align="center">Required</th>
+	          <th align="center">Show on<br>Forms</th>
+	          <th align="center">Show on<br>Reports</th>
+						<th align="center">Sort<br>Order</th>
+	        </tr>
+	        <% for field in @participant_fields -%>
+	          <% if @current_record.nil? -%>
+	          	<tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+	          <% elsif @current_record.id == field.id -%>
+	          	<tr class="error-row">
+	          <% else -%>
+	          	<tr class="<%= cycle('table-item-odd', 'table-item-even') %>">	          
+	          <% end -%>
+	            <% if field.participant_custom_field.nil? -%>
+		            <td><%= h field.participant_column_name %></td>
+	    	        <td align="left"><%= text_field_tag "name_#{field.id}", @field_names[field.id], :class => 'text' %></td>
+	  	          <td align="center"><%= field.participant_column_required %></td>
+	    	        <% if field.participant_column_required -%>
+	    	        	<td align="center">Yes<%= hidden_field "show_field_#{field.id}", true %></td>
+	    	        <% else -%>
+          				<td align="center"><%= select_tag("show_field_#{field.id}", options_for_select([["Yes", true],["No", false]], @show_values[field.id]), :class => 'list') %></td>	    	        	
+	    	        <% end -%>
+	            <% else -%>
+		            <td align="left">Custom Field <%= field.participant_custom_field_id %></td>
+		            <td><%= h field.participant_custom_field.field_name %></td>
+	  	          <td align="center"><%= field.participant_custom_field.required %></td>
+	    	        <td align="center">Yes</td>            
+							<% end -%>
+      				<td align="center"><%= select_tag("show_on_reports_#{field.id}", options_for_select([["Yes", true],["No", false]], @report_values[field.id]), :class => 'list') %></td>	    	        	
+    	        <td align="center"><%= text_field_tag "sort_#{field.id}", @sort_values[field.id], :class => 'small_text' %></td>
+	          </tr>          
+	        <% end -%>
+	      </table>
+        <%= submit_tag 'Update', :class => 'button' %> | <%= link_to 'Back', :action => 'list' %>
+	    </div>
+		<% end -%>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+     <% if $g_im_online -%>
+     <%= render :partial => '/im/admin/links' %>
+     <% end -%>
+     <% if $g_ct_online -%>
+     <%= render :partial => '/ct/admin/links' %>
+     <% end -%>
+     <% if $g_rt_online -%>
+     <%= render :partial => '/rt/admin/links' %>
+     <% end -%>
+     <%= render :partial => '/admin/links' %>
+  </div>
+</div>
+

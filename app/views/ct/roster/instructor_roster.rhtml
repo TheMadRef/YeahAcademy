@@ -1,0 +1,38 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Roster for <%= @ct_session.ct_class.term.term_name %> : <%= @ct_session.ct_class.class_name %> : <%= @ct_session.s_class_name %></h3>
+    <div id="list-table">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Last, First</th>
+		  <th align="left">Mother</th>
+          <th align="left">Email</th>
+          <th align="left">Phone</th>
+          <th colspan="2">&nbsp;</th>
+        </tr>
+      <% for roster in @ct_rosters -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <% if roster.participant.nil? -%>
+          <td colspan="4">Participant not found. May have been deleted.</td>
+          <% else -%>             
+            <td><%= h roster.participant.last_name %>,&nbsp;<%= h roster.participant.first_name %></td>
+			<td><%= h roster.participant.mi %></td>
+            <td><%= link_to "#{h roster.participant.email}", "mailto:#{roster.participant.email}" %></td>
+            <td align="center"><% if roster.participant.phone.blank? %>-<% else %><%= h roster.participant.phone %><% end %></td>
+            <td align="center"><% if roster.paid %>Paid<% else %><%= link_to 'Manual Pay', :action => 'instructor_pay', :id => roster %><% end %></td>
+          <% end -%>
+          <td align="center"><%= link_to image_tag("delete.png", :border=>0, :title =>"Remove from Roster", :alt=>"Remove from Roster"), { :action => 'destroy', :id => roster }, :confirm => 'Are you sure?', :method => :post %></td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@ct_roster_pages, :window_size => 5) %></div>
+	  <p align="right"><%= link_to "Email Roster Participants", :action => 'email_session_roster', :id => @ct_session %>&nbsp;&nbsp;&nbsp;<%= link_to "Print this Roster", {:controller => '/ct/reports', :action => 'print_roster', :id => @ct_session}, :popup => ['Session_Roster_Report', 'height=500,width=850,scrollbars=1,toolbar=1'] %></p>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/client/links' %>
+  </div>
+</div>

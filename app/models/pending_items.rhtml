@@ -1,0 +1,141 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing  
+  		<% if !@payment_item_id.blank? -%>
+  			<%= h @payment_item.term.term_namepayment_item %>&nbsp;
+			<% end -%>
+			 Pending Items
+			<% if !@participant_id.blank? %>
+				for <%= h @participant.first_name %> <%= h @participant.last_name %>
+			<% end -%>
+			due between <%= @start_date.to_s(:mdy) %> and <%= @end_date.to_s(:mdy) %>
+  	</h3>
+    	<%= link_to 'Show Completed Orders', :action => 'accounting_history' %> |&nbsp;
+			<% if @overdue_items -%>
+				<%= link_to 'Show All Pending Items', :action => 'pending_items', :params => {:overdue_items => false, :payment_item_id => @pending_item_id}, :participant_id => @participant_id, :per_page => @per_page} %>
+			<% else -%>
+				<%= link_to 'Show Only Past Due Items', :action => 'pending_items', :params => {:overdue_items => true, :payment_item_id => @pending_item_id}, :participant_id => @participant_id, :per_page => @per_page} %>		
+			<% end -%>
+    <% if !@line_items[0].nil? %>
+	    <div id="list-table">
+	      <table cellspacing="0" cellpadding="0">
+	        <tr>
+	        	<th aligh="left">#</th>
+	          <th align="left">Participant</th>
+	          <th align="left">Item Type</th>
+	          <th align="left">Description</th>
+	          <th align="left">Price</th>
+	          <th align="left">Due Date</th>
+	        </tr>
+		      <% for line_item_id in @line_items -%>
+		        <% line_item = LineItem.find_by_id(line_item_id) -%>
+		        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+			          <td valign="top"><%= line_item.id %></td>
+			          <td valign="top"><%= link_to "#{h line_item.participant.first_name} #{h line_item.participant.last_name}", "mailto:#{line_item.participant.email}" %></td>
+                <td valign="top"><%= line_item.payment_item.payment_item %></td>
+                <td valign="top">
+                  <% if line_item.payment_item_id == 1 -%>
+                    <% if line_item.im_roster.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.im_roster.participant.last_name %> in <%= line_item.im_roster.im_team.team_name -%>
+                    <% end -%>
+                  <% elsif line_item.payment_item_id == 2 -%>
+                    <% if line_item.im_team.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.im_team.team_name -%> in
+                      <% if line_item.im_team.im_division_id.nil? -%>
+                        <%= line_item.im_team.im_league.im_sport.sport_name -%>
+                      <% else -%>
+                        <%= line_item.im_team.im_division.im_league.im_sport.sport_name -%>                      
+                      <% end -%>
+                    <% end -%>
+                  <% elsif line_item.payment_item_id == 3 -%>
+                    <% if line_item.ct_roster.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.ct_roster.ct_session.s_class_name %> in <%= line_item.ct_roster.ct_session.ct_class.class_name %>
+                    <% end -%>
+                  <% elsif line_item.payment_item_id == 4 -%>
+                    <% if line_item.discount_log.nil? -%>
+                      Item Removed
+                    <% else -%>
+                      <%= line_item.discount_log.comment %>
+                    <% end -%>
+                  <% end -%>
+                  <% if !line_item.comment.blank? %><br><%= line_item.comment %><% end %>                 
+                </td>
+                <td valign="top" align="center"><%= number_to_currency(line_item.price) %></td>
+			          <td valign="top"><%= order.created_at.to_s(:dmyhm) %></td>
+		        </tr>
+		      <% end -%>
+	      </table>
+	      <div id="pagination"><%= pagination_links(@line_item_pages, :window_size => 5, :params => {:payment_item_id => @payment_item_id, :participant_id => @participant_id, :per_page => @per_page, :start_date => @start_date, :end_date => @end_date, :overdue_items => @overdue_items }) %>
+	        <% if @per_page == 100 -%>
+	          <%= link_to 'Small List', :action => 'accounting_history', :params => { :payment_item_id => @payment_item_id, :participant_id => @participant_id, :per_page => 10, :start_date => @start_date, :end_date => @end_date } %>
+	        <% else -%>
+	          <%= link_to 'Big List', :action => 'list', :params => { :payment_item_id => @payment_item_id, :participant_id => @participant_id, :per_page => 100, :start_date => @start_date, :end_date => @end_date } %>
+	        <% end -%>      
+	      </div>
+			<% else -%>
+				<h4>No orders match your search criteria</h4>
+			<% end -%>
+      <table cellspacing="0" cellpadding="0">
+      	<% form_tag "/accounting/accounting_history?per_page=#{@per_page}" do -%>
+        	<tr>
+          	<th colspan="2">Search Options</th>
+      	  </tr>
+          <tr>
+            <td>Participant:</td>
+            <td>
+            	<select name="participant_id" id="participant_id"><option value="">All Participants</option><%= options_from_collection_for_select(@participants.collect {|participant| [participant.id, participant.first_name + " " + participant.last_name]}, 'first', 'last', @participant_id.to_i) %></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Payment Item:</td>
+            <td>
+            	<select name="payment_item_id" id="payment_item_id"><option value="">All Payment Items</option>
+              <%= options_from_collection_for_select(@payment_items.collect {|payment_item| [payment_item.id, payment_item.payment_item]}, 'first', 'last', @payment_item_id.to_i) %></select>
+            </td>
+          </tr>
+          <tr>
+            <td>Date Range:</td>
+            <td>
+              <%= select_date @start_date, :prefix => 'start_date' %> - <%= select_date @end_date, :prefix => 'end_date' %>         
+            </td>
+          </tr>
+          <tr>
+	          <td align="right">&nbsp;</td>
+            <td><%= submit_tag "Search", :class => 'button' %></td>
+          </tr>
+				<% end -%>
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td><%= button_to "Clear", "accounting_history?per_page=#{@per_page}", :class => 'button' %></td>
+        </tr>      
+     	</table>   
+    	<%= link_to 'Show Completed Orders', :action => 'accounting_history' %> |&nbsp;
+			<% if @overdue_items -%>
+				<%= link_to 'Show All Pending Items', :action => 'pending_items', :params => {:overdue_items => false, :payment_item_id => @pending_item_id}, :participant_id => @participant_id, :per_page => @per_page} %>
+			<% else -%>
+				<%= link_to 'Show Only Past Due Items', :action => 'pending_items', :params => {:overdue_items => true, :payment_item_id => @pending_item_id}, :participant_id => @participant_id, :per_page => @per_page} %>		
+			<% end -%>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+	 <% if $g_im_online -%>
+	   <%= render :partial => '/im/admin/links' %>
+	 <% end -%>
+	 <% if $g_ct_online -%>
+  	 <%= render :partial => '/ct/admin/links' %>
+	 <% end -%>
+	 <% if $g_rt_online -%>
+  	 <%= render :partial => '/rt/admin/links' %>
+	 <% end -%>
+   <%= render :partial => '/admin/links' %>
+  </div>
+</div>

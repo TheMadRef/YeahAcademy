@@ -1,0 +1,41 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>Listing Participants</h3>
+    <div id="list-table">
+      <%= link_to 'Add New Participant', :action => 'new' %>
+      <%= render :partial => 'build_list' %>      
+      <% form_tag :action => 'search_list' do -%>
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <td nowrap><%= radio_button_tag("search_type", "id", checked = true) -%> Search by <% if $g_require_member_number %>ID #<% else %>Email Address<% end %></td>
+            <td nowrap colspan="5"><%= radio_button_tag("search_type", "name", checked = false) -%> Search by Name</td>
+          </tr>
+          <tr>
+            <td><%= text_field_tag 'participant_number', @participant_number, :class => 'text' %></td>       
+            <td nowrap>First:&nbsp;</td>
+            <td><%= text_field_tag 'first_name', @first_name, :class => 'text' %></td>       
+            <td nowrap>Last:&nbsp;</td>
+            <td><%= text_field_tag 'last_name', @last_name, :class => 'text' %></td>       
+            <td><%= submit_tag "Search", :class => 'button' %></td>
+          </tr>
+        </table>
+      <% end -%>
+      <%= link_to 'Add New Participant', :action => 'new' %>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+	 <% if $g_im_online -%>
+	   <%= render :partial => '/im/admin/links' %>
+	 <% end -%>
+	 <% if $g_ct_online -%>
+  	 <%= render :partial => '/ct/admin/links' %>
+	 <% end -%>
+	 <% if $g_rt_online -%>
+  	 <%= render :partial => '/rt/admin/links' %>
+	 <% end -%>
+   <%= render :partial => '/admin/links' %>
+  </div>
+</div>

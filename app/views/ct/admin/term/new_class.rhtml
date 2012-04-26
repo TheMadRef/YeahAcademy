@@ -1,0 +1,25 @@
+<div id="primaryContent_2columns">
+  <div id="columnA_2columns">
+    <%= display_standard_flashes -%>
+    <h3>New Class - Select a Term</h3>
+    <div id="list-table">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th align="left">Term</th>
+        </tr>
+      <% for term in @terms -%>
+        <tr class="<%= cycle('table-item-odd', 'table-item-even') %>">
+          <td><%= link_to term.term_name, :controller => '/ct/admin/class', :action => 'new', :id => term %></td>
+        </tr>
+      <% end -%>
+      </table>
+      <div id="pagination"><%= pagination_links(@term_pages, :window_size => 5) %></div>
+    </div>
+  </div>
+</div>
+<div id="secondaryContent_2columns">
+  <div id="columnC_2columns">
+    <%= render :partial => '/ct/admin/links' %>
+    <%= render :partial => '/admin/links' %>
+  </div>
+</div>

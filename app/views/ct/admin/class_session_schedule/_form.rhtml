@@ -1,0 +1,59 @@
+<%= error_messages_for 'ct_session_schedule', 'ct_reservation', 'participant_event' %>
+
+<!--[form:ct_session_schedule]-->
+<%= hidden_field 'ct_session_schedule', 'ct_session_id' %>
+	<dt><label for="ct_session_schedule_session_start_date">Session Start Date</label></dt>
+	<dd><%= date_select 'ct_session_schedule', 'session_start_date'  %></dd>
+
+	<dt><label for="ct_session_schedule_session_end_date">Session End Date</label></dt>
+	<dd><%= date_select 'ct_session_schedule', 'session_end_date'  %></dd>
+
+	<dt><label for="ct_session_schedule_playing_area_id">Location:</label></dt>
+	<dd><%= select("ct_session_schedule", "playing_area_id", @playing_area_options , {:include_blank => true}, :class => 'list') %></dd>
+
+<div id="list-table">
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+			<th align="left">Day</th>
+			<th align="left">Start Time</th>
+			<th align="left">End Time</th>
+    </tr>
+    <tr class="table-item-odd">
+    	<td><%= check_box 'ct_session_schedule', 'meet_monday' %> <label for="ct_session_schedule_meet_monday">Meets Monday</label></td>
+			<td><%= time_select 'ct_session_schedule', 'monday_start_time'  %></td>
+			<td><%= time_select 'ct_session_schedule', 'monday_end_time'  %></td>
+		</tr>
+    <tr class="table-item-even">
+    	<td><%= check_box 'ct_session_schedule', 'meet_tuesday' %> <label for="ct_session_schedule_meet_tuesday">Meets Tuesday</label></td>
+			<td><%= time_select 'ct_session_schedule', 'tuesday_start_time'  %></td>
+			<td><%= time_select 'ct_session_schedule', 'tuesday_end_time'  %></td>
+		</tr>
+    <tr class="table-item-odd">
+    	<td><%= check_box 'ct_session_schedule', 'meet_wednesday' %> <label for="ct_session_schedule_meet_wednesday">Meets Wednesday</label></td>
+			<td><%= time_select 'ct_session_schedule', 'wednesday_start_time'  %></td>
+			<td><%= time_select 'ct_session_schedule', 'wednesday_end_time'  %></td>
+		</tr>
+    <tr class="table-item-even">
+    	<td><%= check_box 'ct_session_schedule', 'meet_thursday' %> <label for="ct_session_schedule_meet_thurday">Meets Thursday</label></td>
+			<td><%= time_select 'ct_session_schedule', 'thursday_start_time'  %></td>
+			<td><%= time_select 'ct_session_schedule', 'thursday_end_time'  %></td>
+		</tr>
+    <tr class="table-item-odd">
+    	<td><%= check_box 'ct_session_schedule', 'meet_friday' %> <label for="ct_session_schedule_meet_friday">Meets Friday</label></td>
+			<td><%= time_select 'ct_session_schedule', 'friday_start_time'  %></td>
+			<td><%= time_select 'ct_session_schedule', 'friday_end_time'  %></td>
+		</tr>
+    <tr class="table-item-even">
+    	<td><%= check_box 'ct_session_schedule', 'meet_saturday' %> <label for="ct_session_schedule_meet_saturday">Meets Saturday</label></td>
+			<td><%= time_select 'ct_session_schedule', 'saturday_start_time'  %></td>
+			<td><%= time_select 'ct_session_schedule', 'saturday_end_time'  %></td>
+		</tr>
+    <tr class="table-item-odd">
+    	<td><%= check_box 'ct_session_schedule', 'meet_sunday' %> <label for="ct_session_schedule_meet_sunday">Meets Sunday</label></td>
+			<td><%= time_select 'ct_session_schedule', 'sunday_start_time'  %></td>
+			<td><%= time_select 'ct_session_schedule', 'sunday_end_time'  %></td>
+		</tr>
+	</table>
+</div>
+<!--[eoform:ct_session_schedule]-->
+
