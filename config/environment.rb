@@ -74,16 +74,16 @@ $g_im_online = false
 $g_ct_online = true
 $g_rt_online = false
 
-require 'action_mailer/ar_mailer'
-	ActionMailer::Base.perform_deliveries = true  
-	ActionMailer::Base.default_charset = 'utf-8'
-	ActionMailer::Base.delivery_method = :activerecord
+  ActionMailer::Base.perform_deliveries = true  
+  ActionMailer::Base.default_charset = 'utf-8'
+  ActionMailer::Base.delivery_method = :smtp
    ActionMailer::Base.smtp_settings = {
-   :address => "mail.classtrackonline.com" ,
-    :port => 25,
-    :domain => "localhost" ,
-    :authentication => :login,
-    :user_name => "tutormail@classtrackonline.com" ,
-    :password => "sk!py3ah",
-    :tls => false
+    :address => "smtp.sendgrid.com" ,
+    :port => 587,
+    :domain => "yeahacademy.com" ,
+    :authentication => :plain,
+    :user_name => "RecSolutionsEmail" ,
+    :password => "IMTr@ck2012",
+    :enable_starttls_auto => true
   }
+

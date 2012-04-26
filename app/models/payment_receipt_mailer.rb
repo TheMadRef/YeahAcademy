@@ -1,4 +1,4 @@
-class PaymentReceiptMailer < ActionMailer::ARMailer
+class PaymentReceiptMailer  < ActionMailer::Base
   def receipt(order_id, participant, total, url)
     @subject    = 'Facilitrax Notification: Payment Receipt'
     email_custom_text = EmailCustomText.find(1)

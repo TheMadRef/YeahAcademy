@@ -1,4 +1,4 @@
-class FreeAgentMailer < ActionMailer::ARMailer
+class FreeAgentMailer  < ActionMailer::Base
 
   def invite(free_agent, url)
     @subject    = 'IMOnline Notification: New Free Agent Invitation'

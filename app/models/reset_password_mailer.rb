@@ -1,4 +1,4 @@
-class ResetPasswordMailer < ActionMailer::ARMailer
+class ResetPasswordMailer  < ActionMailer::Base
   def reset_password(user, participant, url)
     @subject    = 'Your ClassTrack Online Reset Password Request'
     @body["user"] = user

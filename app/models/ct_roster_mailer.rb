@@ -1,4 +1,4 @@
-class CtRosterMailer < ActionMailer::ARMailer
+class CtRosterMailer  < ActionMailer::Base
   def email_roster(email, roster, class_name, session_name, columns)
     @subject    = "Class Roster for #{class_name}:#{session_name}"
     @body["class_name"] = class_name

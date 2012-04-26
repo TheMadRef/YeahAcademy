@@ -1,4 +1,4 @@
-class CtSessionNotificationsMailer < ActionMailer::ARMailer
+class CtSessionNotificationsMailer  < ActionMailer::Base
   def cancel_session(participant_id, ct_session_id, session_date, start_time, facility)
     @subject    = 'ClassTrack Online Notification: Session Cancelled'
     participant = Participant.find_by_id(participant_id)
